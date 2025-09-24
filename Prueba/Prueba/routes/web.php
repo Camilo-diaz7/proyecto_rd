@@ -43,7 +43,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 */
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
-    Route::get('/dashboard', function () {
+    Route::get('dashboard', function () {
         return redirect()->route('empleados.index'); 
     })->name('dashboard');
 
@@ -68,7 +68,8 @@ Route::prefix('cliente')->name('cliente.')->middleware('auth')->group(function (
     })->name('dashboard');
 
     Route::resource('boletas', BoletaController::class);
-    Route::resource('reservaciones', reservacionControlador::class);
+    Route::resource('reservaciones', reservacionControlador::class)
+     ->parameters(['reservaciones' => 'reservacion']);
 });
 
 /*
