@@ -14,10 +14,10 @@ class ProductoControlador extends Controller
     {
         $productos = Producto::all();
 
-        if (auth()->user()->hasRole('empleado')) {
-            return view('empleados.productos.index', compact('productos'));
+        if (auth()->user()->hasRole('admin')) {
+            return view('productos.index', compact('productos'));
         } else {
-            return view('empleado.productos.index', compact('productos'));
+            return view('productos.index', compact('productos'));
         }
     }
 
@@ -26,7 +26,7 @@ class ProductoControlador extends Controller
      */
     public function create()
     {
-        return view('empleados.productos.create');
+        return view('productos.create');
     }
 
     /**
@@ -59,7 +59,7 @@ class ProductoControlador extends Controller
      */
     public function edit(Producto $producto)
     {
-        return view('empleados.productos.edit', compact('producto'));
+        return view('productos.edit', compact('producto'));
     }
 
     /**

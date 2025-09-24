@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <h1>Editar producto</h1>
@@ -13,7 +13,7 @@
         </div>
     @endif
 
-    <form action="{{ route('productos.update', $producto) }}" method="POST">
+    <form action="{{ route('empleados.productos.update', $producto) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -38,6 +38,6 @@
         </div>
 
         <button type="submit">Actualizar</button>
-        <a href="{{ route('productos.index') }}">Cancelar</a>
+        <a href="{{ route('empleados.productos.index') }}">Cancelar</a>
     </form>
 @endsection

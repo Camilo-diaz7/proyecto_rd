@@ -128,7 +128,6 @@
     <div class="logo-container">
       <img src="{{ asset('imagenes/logo1.svg') }}" alt="Logo">
     </div>
-
     <nav>
       <a href="{{ route('admin.empleados.index') }}" class="active">
         <i class="bi bi-people-fill"></i> Empleados
@@ -141,6 +140,9 @@
       </a>
       <a href="{{route('admin.ventas.index')  }}">
         <i class="bi bi-gear-fill">Ventas</i>
+      </a>
+      <a href="{{route('admin.productos.index')  }}">
+        <i class="bi bi-gear-fill">Productos</i>
       </a>
  
     </nav>
