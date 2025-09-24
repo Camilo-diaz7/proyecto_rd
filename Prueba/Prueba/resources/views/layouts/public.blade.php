@@ -3,6 +3,9 @@
   <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
 
       <!-- CSRF Token -->
       <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -15,7 +18,7 @@
 
       <!-- Bootstrap -->
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    
       <!-- Estilos personalizados -->
       <style>
           body {
@@ -165,6 +168,7 @@
     .footer a:hover {
       color: #ffcccc;
     }
+    
       </style>
       @vite(['resources/sass/app.scss', 'resources/js/app.js'])
   </head>
@@ -222,5 +226,31 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS JS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from(".producto", {
+    opacity: 0,
+    y: 5,
+    duration: 1,
+    scrollTrigger: {
+      trigger: ".producto",
+      start: "top 200%",     // cuando entra
+      end: "bottom 5%",    // cuando sale
+      toggleActions: "play reverse play reverse", // entrada / salida / entrada / salida
+      markers: false
+    }
+  });
+</script>
+
+
   </body>
 </html>

@@ -88,7 +88,7 @@ class EmpleadoController extends Controller
 
         $empleado->update($request->all());
 
-        return redirect()->route('admin.empleados.index')
+        return redirect()->route('empleados.index')
                          ->with('success', 'Empleado actualizado correctamente ✅');
     }
 
@@ -99,7 +99,7 @@ class EmpleadoController extends Controller
     {
         $empleado->delete();
 
-        return redirect()->route('admin.empleados.index')
+        return redirect()->route('empleados.index')
                          ->with('success', 'Empleado eliminado correctamente ❌');
     }
 }

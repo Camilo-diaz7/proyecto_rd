@@ -53,7 +53,7 @@
               <div class="card text-center">
                 <div class="card text-center producto"style="background:  #000000;">
                 <img src="imagenes/belirum.png" alt="Delirium">
-                <h4 style="color: rgb(255, 255, 255); font-size: 30px;"><b>Cerveza Delirium Nocturnum Botella</b></h4>
+                <h3 style="color: rgb(255, 255, 255); font-size: 31.2px;"><b>Cerveza Delirium Nocturnum Botella</b></h3>
                 <h3 style="color: rgb(94, 92, 92);"><b>Precio: $30.000</b></h3>
                 <h3 style="color: rgb(138, 11, 11);"><b>Contenido: 330ml</b></h3>
                 </div>
