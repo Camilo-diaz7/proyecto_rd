@@ -13,7 +13,7 @@
         </div>
     @endif
 
-    <form action="{{ route('empleados.productos.store') }}" method="POST">
+    <form action="{{ route('admin.productos.store') }}" method="POST">
         @csrf
 
         <div>
@@ -37,6 +37,6 @@
         </div>
 
         <button type="submit">Guardar</button>
-        <a href="{{ route('empleados.productos.index') }}">Cancelar</a>
+        <a href="{{ route('admin.productos.index') }}">Cancelar</a>
     </form>
 @endsection

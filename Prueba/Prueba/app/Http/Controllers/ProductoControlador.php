@@ -15,9 +15,9 @@ class ProductoControlador extends Controller
         $productos = Producto::all();
 
         if (auth()->user()->hasRole('admin')) {
-            return view('productos.index', compact('productos'));
+            return view('empleados.productos.index', compact('productos'));
         } else {
-            return view('productos.index', compact('productos'));
+            return view('empleados.productos.index', compact('productos'));
         }
     }
 
@@ -26,7 +26,7 @@ class ProductoControlador extends Controller
      */
     public function create()
     {
-        return view('productos.create');
+        return view('empleados.productos.create');
     }
 
     /**
@@ -43,7 +43,7 @@ class ProductoControlador extends Controller
 
         Producto::create($validated);
 
-        return redirect()->route('productos.index')->with('success', 'Producto registrado exitosamente.');
+        return redirect()->route('empleados.productos.index')->with('success', 'Producto registrado exitosamente.');
     }
 
     /**
@@ -51,7 +51,7 @@ class ProductoControlador extends Controller
      */
     public function show(Producto $producto)
     {
-        return view('productos.show', compact('producto'));
+        return view('empleados.productos.show', compact('producto'));
     }
 
     /**
@@ -59,7 +59,7 @@ class ProductoControlador extends Controller
      */
     public function edit(Producto $producto)
     {
-        return view('productos.edit', compact('producto'));
+        return view('empleados.productos.edit', compact('producto'));
     }
 
     /**
@@ -76,7 +76,7 @@ class ProductoControlador extends Controller
 
         $producto->update($validated);
 
-        return redirect()->route('productos.index')->with('success', 'Producto actualizado exitosamente.');
+        return redirect()->route('empleados.productos.index')->with('success', 'Producto actualizado exitosamente.');
     }
 
     /**
@@ -86,6 +86,6 @@ class ProductoControlador extends Controller
     {
         $producto->delete();
 
-        return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
+        return redirect()->route('empleados.productos.index')->with('success', 'Producto eliminado exitosamente.');
     }
 }
