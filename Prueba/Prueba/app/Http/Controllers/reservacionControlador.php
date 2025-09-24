@@ -20,7 +20,7 @@ class reservacionControlador extends Controller
 
     if ($usuario->role === 'cliente') {
         // Solo las reservaciones de ese cliente
-        $reservaciones = Reservacion::where('id', $usuario->id)->get();
+        $reservaciones = Reservacion::where('id', auth::id())->get();
         return view('cliente.reservaciones.index', compact('reservaciones'));
     }
 
