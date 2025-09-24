@@ -17,7 +17,7 @@ class reservacionControlador extends Controller
     public function index()
     {
         $reservaciones = Reservacion::where('id', Auth::id())->get();
-        return view('cliente.reservaciones.index',compact('reservaciones'));
+        return view('admin.reservaciones.index',compact('reservaciones'));
         //lista del producto
     }
 
@@ -27,7 +27,7 @@ class reservacionControlador extends Controller
     public function create()
     {
         //formulario donde estan los campos a registrar
-        return view('cliente.reservaciones.create');
+        return view('admin.reservaciones.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class reservacionControlador extends Controller
     // Guardar en la base de datos
     $reservacion->save();
 
-    return redirect()->route('reservaciones.index')->with('success', 'Reservación creada correctamente');
+    return redirect()->route('admin.reservaciones.index')->with('success', 'Reservación creada correctamente');
 }
 
     /**
@@ -74,7 +74,7 @@ class reservacionControlador extends Controller
      */
 public function edit(Reservacion $reservacion)
 {
-    return view('cliente.reservaciones.edit', compact('reservacion'));
+    return view('admin.reservaciones.edit', compact('reservacion'));
 }
 
     /**
@@ -100,7 +100,7 @@ public function edit(Reservacion $reservacion)
         'ocasion'
     ]));
 
-    return redirect()->route('reservaciones.index')->with('success', 'Reservación actualizada correctamente');
+    return redirect()->route('admin.reservaciones.index')->with('success', 'Reservación actualizada correctamente');
 }
 
     /**
@@ -109,7 +109,7 @@ public function edit(Reservacion $reservacion)
     public function destroy(Reservacion $reservacion)
     {
         $reservacion->delete();
-        return redirect()->route('reservaciones.index')->with('success', 'Reservación eliminada correctamente');
+        return redirect()->route('admin.reservaciones.index')->with('success', 'Reservación eliminada correctamente');
 
         //eliminar
     }
