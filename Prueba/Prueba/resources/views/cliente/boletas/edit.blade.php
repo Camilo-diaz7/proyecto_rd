@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <form action="{{ route('clientes.boletas.update', $boleta->id_boleta) }}" method="POST" class="p-4 bg-light rounded shadow-sm">
+    <form action="{{ route('cliente.boletas.update', $boleta->id_boleta) }}" method="POST" class="p-4 bg-light rounded shadow-sm">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -35,7 +35,7 @@
         </div>
 
         <button type="submit" class="btn btn-danger ms -4">Actualizar</button>
-        <a href="{{ route('boletas.index') }}" class="btn btn-dark ms-4">Cancelar</a>
+        <a href="{{ route('cliente.boletas.index') }}" class="btn btn-dark ms-4">Cancelar</a>
     </form>
 </div>
 

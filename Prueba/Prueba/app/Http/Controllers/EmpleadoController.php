@@ -53,7 +53,7 @@ class EmpleadoController extends Controller
             'telefono'         => $request->telefono,
         ]);
 
-        return redirect()->route('admin.empleados.index')
+        return redirect()->route('empleados.index')
                          ->with('success', 'Empleado creado correctamente ✅');
     }
 

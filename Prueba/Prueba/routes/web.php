@@ -24,7 +24,6 @@ Route::get('/catalogo', function () {
 })->name('catalogo');
 
 Route::get('/eventos', [EventoController::class, 'mostrarEventos'])->name('eventos.publico');
-
 /*
 |--------------------------------------------------------------------------
 | Autenticación
@@ -44,15 +43,14 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 */
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
-    Route::get('/dashboard', function () {
-        return redirect()->route('admin.empleados.index'); 
+    Route::get('dashboard', function () {
+        return redirect()->route('empleados.index'); 
     })->name('dashboard');
 
     // CRUD de empleados (ahora sí bien conectado)
     Route::resource('empleados', EmpleadoController::class);
 
     // Otras entidades para admin
-    Route::resource('detalles', DetalleVentaControlador::class);
     Route::resource('ventas', ventaControlador::class);
     Route::resource('productos', ProductoControlador::class);
     Route::resource('eventos', EventoController::class);
@@ -70,8 +68,8 @@ Route::prefix('cliente')->name('cliente.')->middleware('auth')->group(function (
     })->name('dashboard');
 
     Route::resource('boletas', BoletaController::class);
-    Route::resource('eventos', EventoController::class);
-    Route::resource('reservaciones', reservacionControlador::class);
+    Route::resource('reservaciones', reservacionControlador::class)
+     ->parameters(['reservaciones' => 'reservacion']);
 });
 
 /*

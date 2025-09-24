@@ -7,16 +7,13 @@
         @csrf
 
         <!-- Selección de Usuario -->
+        <!-- Ya no es necesario enviar el ID del usuario -->
+
         <div class="mb-3">
-    <label for="usuario_id" class="form-label">Usuario</label>
-    <select name="usuario_id" id="usuario_id" class="form-select" required>
-        @foreach($usuarios as $usuario)
-            <option value="{{ $usuario->id }}">
-                {{ $usuario->name }} {{ $usuario->apellido }} ({{ $usuario->numero_documento }})
-            </option>
-        @endforeach
-    </select>
-</div>
+            <label for="id" class="form-label">ID Usuario</label>
+            <input type="text" class="form-control" value="{{ Auth::user()->name }}" disabled>
+            <input type="hidden" name="id" value="{{ Auth::id() }}">
+        </div>
 
         <!-- Selección de Evento -->
         <div class="mb-3">

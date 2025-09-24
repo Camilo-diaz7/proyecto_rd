@@ -56,7 +56,7 @@ class reservacionControlador extends Controller
     // Guardar en la base de datos
     $reservacion->save();
 
-    return redirect()->route('reservaciones.index')->with('success', 'Reservación creada correctamente');
+    return redirect()->route('cliente.reservaciones.index')->with('success', 'Reservación creada correctamente');
 }
 
     /**
@@ -64,7 +64,7 @@ class reservacionControlador extends Controller
      */
     public function show(Reservacion $reservacion)
     {
-        return view('reservaciones.show',compact('reservacion'));
+        return view('cliente.reservaciones.show',compact('reservacion'));
         //mostrar los detalles de un producto
 
     }
@@ -100,7 +100,7 @@ public function edit(Reservacion $reservacion)
         'ocasion'
     ]));
 
-    return redirect()->route('reservaciones.index')->with('success', 'Reservación actualizada correctamente');
+    return redirect()->route('cliente.reservaciones.index')->with('success', 'Reservación actualizada correctamente');
 }
 
     /**
@@ -109,7 +109,7 @@ public function edit(Reservacion $reservacion)
     public function destroy(Reservacion $reservacion)
     {
         $reservacion->delete();
-        return redirect()->route('reservaciones.index')->with('success', 'Reservación eliminada correctamente');
+        return redirect()->route('cliente.reservaciones.index')->with('success', 'Reservación eliminada correctamente');
 
         //eliminar
     }

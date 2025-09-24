@@ -16,7 +16,7 @@ class LoginController extends Controller
 protected function authenticated(Request $request, $user)
 {
     if ($user->role === 'admin') {
-        return redirect()->route('admin.empleados.index'); // ✅ admin → lista de empleados
+        return redirect()->route('empleados.index'); // ✅ admin → lista de empleados
     }
 
     if ($user->role === 'empleado') {

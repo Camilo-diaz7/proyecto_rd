@@ -133,7 +133,7 @@
       <a href="{{ route('admin.empleados.index') }}" class="active">
         <i class="bi bi-people-fill"></i> Empleados
       </a>
-      <a href="admin.eventos.index">
+      <a href="{{route('admin.eventos.index')}}">
         <i class="bi bi-calendar-event-fill"></i> Eventos
       </a>
       <a href="{{ route('admin.reservaciones.index') }}">
@@ -142,9 +142,7 @@
       <a href="{{route('admin.ventas.index')  }}">
         <i class="bi bi-gear-fill">Ventas</i>
       </a>
-      <a href="{{ route('admin.detalles.index') }}">
-        <i class="bi bi-gear-fill">detalles</ic>
-      </a>
+ 
     </nav>
 
     <div class="user-profile">

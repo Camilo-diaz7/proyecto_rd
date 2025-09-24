@@ -77,7 +77,7 @@
             margin-bottom: 1rem;
           }
           .producto {
-            background-color: #000000; /* fondo claro */
+            background-color: #000000;
             border: 2px solid #ffffff; /* borde rojo oscuro */
             border-radius: 25px;
             padding: 1rem;
@@ -100,6 +100,7 @@
           }
 
           .producto p {
+            
             margin: 0.2rem 0;
             font-family: 'Oswald', sans-serif;
             font-size: 1rem;

@@ -45,8 +45,8 @@
 
                 {{-- Acciones --}}
                 <td>
-                    <a href="{{ route('boletas.edit', ['boleta' => $boleta->id_boleta]) }}" class="btn btn-dark btn-sm">Editar</a>
-                    <form action="{{ route('boletas.destroy', ['boleta' => $boleta->id_boleta]) }}" method="POST" style="display:inline;">
+                    <a href="{{ route('cliente.boletas.edit', ['boleta' => $boleta->id_boleta]) }}" class="btn btn-dark btn-sm">Editar</a>
+                    <form action="{{ route('cliente.boletas.destroy', ['boleta' => $boleta->id_boleta]) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que desea eliminar esta boleta?')">Eliminar</button>
