@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Lista de Productos')
 
 @section('content')
     <h1>Productos</h1>
 
-    <a href="{{ route('productos.create') }}" class="btn btn-primary mb-3">Agregar Producto</a>
+    <a href="{{ route('empleados.productos.create') }}" class="btn btn-primary mb-3">Agregar Producto</a>
 
     @if($productos->isEmpty())
         <div class="alert alert-info">
@@ -33,8 +33,8 @@
                         <td>${{ number_format($producto->precio_unitario, 2) }}</td>
 
                         <td>
-                            <a href="{{ route('productos.edit', $producto) }}" class="btn btn-warning btn-sm">Editar</a>
-                            <form action="{{ route('productos.destroy', $producto) }}" method="POST" class="d-inline">
+                            <a href="{{ route('empleados.productos.edit', $producto) }}" class="btn btn-warning btn-sm">Editar</a>
+                            <form action="{{ route('empleados.productos.destroy', $producto) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" onclick="return confirm('¿Eliminar este producto?')" class="btn btn-danger btn-sm">Eliminar</button>
