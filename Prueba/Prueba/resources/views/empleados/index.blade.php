@@ -16,6 +16,7 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Email</th>
+                <th>Numero de documento</th>
                 <th>Rol</th>
                 <th>Acciones</th>
             </tr>
@@ -27,6 +28,7 @@
                 <td>{{ $empleado->name }}</td>
                 <td>{{ $empleado->apellido }}</td>
                 <td>{{ $empleado->email }}</td>
+                <td>{{ $empleado->numero_documento }}</td>
                 <td>{{ $empleado->role }}</td>
                 <td>
                     <a href="{{ route('admin.empleados.show', $empleado) }}" class="btn btn-info btn-sm">👁 Ver</a>

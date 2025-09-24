@@ -44,7 +44,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::get('dashboard', function () {
-        return redirect()->route('empleados.index'); 
+        return redirect()->route('empleados.index');
     })->name('dashboard');
 
     // CRUD de empleados (ahora sí bien conectado)
@@ -77,9 +77,23 @@ Route::prefix('cliente')->name('cliente.')->middleware('auth')->group(function (
 | Empleado
 |--------------------------------------------------------------------------
 */
+/*
+|--------------------------------------------------------------------------
+| Empleado
+|--------------------------------------------------------------------------
+*/
 Route::prefix('empleado')->name('empleado.')->middleware('auth')->group(function () {
-    Route::get('/empl', [EmpleadoController::class, 'soloLectura'])->name('empl');
 
-    Route::resource('ventas', ventaControlador::class);
-    Route::resource('reservaciones', reservacionControlador::class);
+    // Dashboard exclusivo del empleado
+    Route::get('/empl', function () {
+        // Si necesitas pasar empleados/clientes:
+        $empleados = \App\Models\User::where('role', 'empleado')->get();
+        $clientes  = \App\Models\User::where('role', 'cliente')->get();
+
+        return view('empleado.empl', compact('empleados','clientes'));
+    })->name('empl');
+
+    // Solo lectura de ventas y reservaciones
+    Route::resource('ventas', ventaControlador::class)->only(['index', 'show']);
+    Route::resource('reservaciones', reservacionControlador::class)->only(['index']);
 });
