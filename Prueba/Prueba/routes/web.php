@@ -7,7 +7,7 @@ use App\Http\Controllers\EventoController;
 use App\Http\Controllers\BoletaController;
 use App\Http\Controllers\DetalleVentaControlador;
 use App\Http\Controllers\ProductoControlador;
-use App\Http\Controllers\reservacionControlador;
+use App\Http\Controllers\ReservacionController;
 use App\Http\Controllers\ventaControlador;
 
 /*
@@ -24,6 +24,8 @@ Route::get('/catalogo', function () {
 })->name('catalogo');
 
 Route::get('/eventos', [EventoController::class, 'mostrarEventos'])->name('eventos.publico');
+Route::get ('/ventas/{venta}/detalles', [DetalleVentaControlador::class, 'porVenta'])->name('detalles.porVenta');
+
 /*
 |--------------------------------------------------------------------------
 | Autenticación
@@ -44,17 +46,18 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::get('/dashboard', function () {
-        return redirect()->route('empleados.index'); 
+        return redirect()->route('admin.empleados.index'); 
     })->name('dashboard');
 
     // CRUD de empleados (ahora sí bien conectado)
+    Route::get ('/ventas/{venta}/detalles', [DetalleVentaControlador::class, 'porVenta'])->name('detalles.porVenta');
+    Route::resource('detalles', DetalleVentaControlador::class);
     Route::resource('empleados', EmpleadoController::class);
-
-    // Otras entidades para admin
     Route::resource('ventas', ventaControlador::class);
     Route::resource('productos', ProductoControlador::class);
     Route::resource('eventos', EventoController::class);
-    Route::resource('reservaciones', reservacionControlador::class);
+    Route::resource('reservaciones', ReservacionController::class)->parameters(['reservaciones' => 'reservacion']);
+
 });
 
 /*
@@ -68,7 +71,7 @@ Route::prefix('cliente')->name('cliente.')->middleware('auth')->group(function (
     })->name('dashboard');
 
     Route::resource('boletas', BoletaController::class);
-    Route::resource('reservaciones', reservacionControlador::class);
+    Route::resource('reservaciones', ReservacionController::class)->parameters(['reservaciones' => 'reservacion']);
 });
 
 /*
@@ -80,5 +83,5 @@ Route::prefix('empleado')->name('empleado.')->middleware('auth')->group(function
     Route::get('/empl', [EmpleadoController::class, 'soloLectura'])->name('empl');
 
     Route::resource('ventas', ventaControlador::class);
-    Route::resource('reservaciones', reservacionControlador::class);
+    Route::resource('reservaciones', ReservacionController::class)->parameters(['reservaciones' => 'reservacion']);
 });

@@ -14,7 +14,7 @@
         </ul>
     </div>
 @endif
-<form action="{{ route('reservaciones.store') }}" method="POST">
+<form action="{{ route('empleado.reservaciones.store') }}" method="POST">
     @csrf
     <div class="mb-3">
         <label for="id" class="form-label">ID Usuario</label>
@@ -41,7 +41,7 @@
     </div>
 
     <button type="submit" class="btn btn-danger">Guardar</button>
-    <a href="{{ route('reservaciones.index') }}" class="btn btn-secondary" >Cancelar</a>
+    <a href="{{ route('empleado.reservaciones.index') }}" class="btn btn-secondary" >Cancelar</a>
 
 </form>
 @endsection

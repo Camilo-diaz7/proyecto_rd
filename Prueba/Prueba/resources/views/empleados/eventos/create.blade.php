@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
     <h2>Crear Evento</h2>
 
-    <form action="{{ route('eventos.store') }}" method="POST">
+    <form action="{{ route('admin.eventos.store') }}" method="POST">
         @csrf
         <div class="mb-3">
             <label class="form-label">Nombre del Evento</label>
@@ -32,7 +32,7 @@
 </div>
 
         <button type="submit" class="btn btn-primary">Guardar</button>
-        <a href="{{ route('eventos.index') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ route('admin.eventos.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 @endsection

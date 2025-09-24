@@ -13,7 +13,7 @@
         </ul>
     </div>
 @endif
-<form action="{{ route('reservaciones.update', $reservacion) }}" method="POST">
+<form action="{{ route('empleado.reservaciones.update', $reservacion) }}" method="POST">
     @csrf
     @method('PUT')
 
@@ -44,7 +44,7 @@
     </div>
 
     <button type="submit" class="btn btn-danger">Actualizar</button>
-    <a href="{{ route('reservaciones.index') }}" class="btn btn-secondary">Cancelar</a>
+    <a href="{{ route('empleado.reservaciones.index') }}" class="btn btn-secondary">Cancelar</a>
 </form>
 
 
