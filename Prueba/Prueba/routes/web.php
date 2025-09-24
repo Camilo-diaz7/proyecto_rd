@@ -94,6 +94,6 @@ Route::prefix('empleado')->name('empleado.')->middleware('auth')->group(function
     })->name('empl');
 
     // Solo lectura de ventas y reservaciones
-    Route::resource('ventas', ventaControlador::class)->only(['index', 'show']);
+    Route::resource('ventas', ventaControlador::class);
     Route::resource('reservaciones', reservacionControlador::class)->only(['index']);
 });

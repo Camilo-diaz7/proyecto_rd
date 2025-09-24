@@ -15,7 +15,7 @@ class ventaControlador extends Controller
     {
         {
          $ventas = Venta::with('usuario')->get();
-    return view('empleados.ventas.index', compact('ventas'));
+    return view('empleado.ventas.index', compact('ventas'));
         //lista del producto
     }
         //
@@ -27,7 +27,7 @@ class ventaControlador extends Controller
     public function create()
     {
         //formulario donde estan los campos a registrar
-        return view('empleados.ventas.create');
+        return view('empleado.ventas.create');
     }
 
     /**
@@ -92,10 +92,10 @@ class ventaControlador extends Controller
         $venta->delete();
         return redirect()->route('ventas.index')->with
         ('success','eliminado exitosamente');
-        
+
         //
     }
-    
+
 }
 
 
