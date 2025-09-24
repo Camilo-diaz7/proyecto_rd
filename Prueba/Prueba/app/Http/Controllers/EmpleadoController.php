@@ -10,13 +10,13 @@ class EmpleadoController extends Controller
     /**
      * Listar empleados y clientes.
      */
-    public function index()
-    {
-        $empleados = User::where('role', 'empleado')->get();
-        $clientes  = User::where('role', 'cliente')->get();
+  public function index()
+{
+    $empleados = User::where('role', 'empleado')->get();
+    $clientes = User::where('role', 'cliente')->get();
 
-        return view('empleados.index', compact('empleados', 'clientes'));
-    }
+    return view('empleados.index', compact('empleados', 'clientes'));
+}
 
     /**
      * Mostrar formulario de creación.
