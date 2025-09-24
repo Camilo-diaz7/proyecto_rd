@@ -28,24 +28,22 @@ class BoletaController extends Controller
     }
 
     public function store(Request $request)
-    {
-         // Validar datos
+{
     $request->validate([
-    'id_evento' => 'required|exists:evento,id_evento',
-    'id_usuario' => 'required|exists:users,id',
-    'cantidad_boletos' => 'required|integer|min:1',
+        'id_evento'        => 'required|exists:evento,id_evento',
+        'id'               => 'required|exists:users,id',
+        'cantidad_boletos' => 'required|integer|min:1',
     ]);
-Boleta::create($request->only(['id_evento', 'id_usuario', 'cantidad_boletos']));
 
+    Boleta::create([
+        'id_evento'        => $request->id_evento,
+        'id'               => $request->id, // usuario autenticado
+        'cantidad_boletos' => $request->cantidad_boletos,
+        'precio_boleta'    => $request->precio_boleta, // opcional
+    ]);
 
-    // Guardar boleta
-   Boleta::create([
-    'id_evento'   => $request->id_evento,
-    'id_usuario'  => $request->id_usuario,
-    'cantidad_boletos' => $request->cantidad_boletos,
-]);
-
-    return redirect()->route('boletas.index')->with('success', 'Boleta creada correctamente 🎉');
+    return redirect()
+        ->route('cliente.boletas.index')->with('success', 'Boleta creada correctamente 🎉');
 }
     public function edit(Boleta $boleta)
     {
@@ -57,18 +55,22 @@ Boleta::create($request->only(['id_evento', 'id_usuario', 'cantidad_boletos']));
     public function update(Request $request, Boleta $boleta)
     {
         $request->validate([
-            'id' => 'required|exists:users,id',
-            'id_evento' => 'required|exists:evento,id_evento',
+            'id_evento'        => 'required|exists:evento,id_evento',
             'cantidad_boletos' => 'required|integer|min:1'
         ]);
 
-        $boleta->update($request->all());
-        return redirect()->route('boletas.index')->with('success','Boleta actualizada correctamente.');
+        $boleta->update([
+            'id_evento'        => $request->id_evento,
+            'cantidad_boletos' => $request->cantidad_boletos,
+        ]);
+
+        return redirect()->route('cliente.boletas.index')->with('success','Boleta actualizada correctamente.');
     }
 
     public function destroy(Boleta $boleta)
     {
         $boleta->delete();
-        return redirect()->route('boletas.index')->with('success','Boleta eliminada correctamente.');
+
+        return redirect()->route('cliente.boletas.index')->with('success','Boleta eliminada correctamente.');
     }
 }

@@ -4,10 +4,10 @@
 <div class="container my-5">
     <div class="row g-4">
 
-      <div class="col-md-6 contenido">
+      <div class="col-md-6 contenido" style="font-size: 19px;">
         <br><br>
 
-        <h2>¿Quiénes Somos?</h2>
+        <h2 >¿Quiénes Somos?</h2>
         <p>
           En Agora Vives Pub, somos un gastro bar que combina las mejores bebidas con una experiencia única de entretenimiento.
           Nuestro objetivo es ofrecer a nuestros clientes un lugar donde puedan disfrutar de deliciosas bebidas en un ambiente acogedor y vibrante.

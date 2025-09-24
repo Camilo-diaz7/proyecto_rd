@@ -13,7 +13,7 @@ class Boleta extends Model
     public $timestamps = false;
     protected $table = 'boleta'; 
     protected $primaryKey = 'id_boleta';
-    protected $fillable = ['id_evento', 'id_usuario', 'cantidad_boletos'];
+    protected $fillable = ['id_evento','id', 'cantidad_boletos','precio_boleta',];
 
     public function evento()
     {

@@ -79,8 +79,12 @@ Route::prefix('cliente')->name('cliente.')->middleware('auth')->group(function (
 | Empleado
 |--------------------------------------------------------------------------
 */
+/*
+|--------------------------------------------------------------------------
+| Empleado
+|--------------------------------------------------------------------------
+*/
 Route::prefix('empleado')->name('empleado.')->middleware('auth')->group(function () {
-    Route::get('/empl', [EmpleadoController::class, 'soloLectura'])->name('empl');
 
     Route::resource('ventas', ventaControlador::class);
     Route::resource('reservaciones', ReservacionController::class)->parameters(['reservaciones' => 'reservacion']);

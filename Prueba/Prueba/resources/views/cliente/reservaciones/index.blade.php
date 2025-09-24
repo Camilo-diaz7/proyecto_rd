@@ -2,11 +2,16 @@
 
 @section('content')
   
-<div class="d-flex justify-content-between mb-3">
-    <h1 class="h4">Reservaciones</h1>
-    <a href="{{ route('reservaciones.create') }}" class="btn btn-danger">Nuevo</a>
-</div>
 
+    <h2>Lista de tus Reservaciones</h2>
+    <a href="{{ route('cliente.reservaciones.create') }}" class="btn btn-danger mb-3">Nueva reserva</a>
+
+<div class="container">
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <table class="table table-striped">
     <thead>
         <tr>
@@ -38,11 +43,10 @@
 
     {{-- Acciones --}}
     <td>
-        <a href="{{ route('reservaciones.show',$reservacion)}}" class="btn btn-dark">Ver</a>
-        <a href="{{ route('reservaciones.edit', $reservacion->id_reservacion) }}" class="btn btn-danger">Editar</a>
-        <form action="{{ route('reservaciones.destroy',$reservacion) }}" method="post" class="d-inline">
+        <a href="{{ route('cliente.reservaciones.edit', $reservacion->id_reservacion) }}" class="btn btn-dark">Editar</a>
+        <form action="{{ route('cliente.reservaciones.destroy',$reservacion) }}" method="post" class="d-inline">
             @csrf @method('DELETE')
-            <button class="btn btn-secondary" onclick="return confirm('Eliminar reservacion?')">Eliminar</button>    
+            <button class="btn btn-danger" onclick="return confirm('Eliminar reservacion?')">Eliminar</button>    
         </form>
     </td>
 </tr>
@@ -50,4 +54,5 @@
 
     </tbody>
 </table>
+</div>
 @endsection

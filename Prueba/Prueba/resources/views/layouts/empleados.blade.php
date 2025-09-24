@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Admin - Agora Vives Pub</title>
+  <title>Empleado - Agora Vives Pub</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
@@ -63,7 +63,6 @@
       color: #ffd700;
     }
 
-
     .user-profile {
       width: 100%;
       margin-top: auto;
@@ -102,24 +101,6 @@
       color: #ffd700;
       font-weight: 700;
     }
-
-    .header-dashboard .user-info {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .user-info .profile-pic {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #000;
-      font-weight: bold;
-    }
   </style>
 </head>
 <body>
@@ -128,58 +109,53 @@
     <div class="logo-container">
       <img src="{{ asset('imagenes/logo1.svg') }}" alt="Logo">
     </div>
-    <nav>
-      <a href="{{ route('admin.empleados.index') }}" class="active">
-        <i class="bi bi-people-fill"></i> Empleados
-      </a>
-      <a href="{{route('admin.eventos.index')}}">
-        <i class="bi bi-calendar-event-fill"></i> Eventos
-      </a>
-      <a href="{{ route('admin.reservaciones.index') }}">
-        <i class="bi bi-gear-fill"></i> Reservaciones
-      </a>
-      <a href="{{route('admin.ventas.index')  }}">
-        <i class="bi bi-gear-fill"></i> Ventas
-      </a>
-      <a href="{{route('admin.productos.index')  }}">
-        <i class="bi bi-gear-fill"></i> Productos
-      </a>
 
- 
+    <nav>
+        <a href="{{ route('empleado.empl')}}">
+            <i class="bi bi-calendar-event-fill">Empleados</i>
+        </a>
+      <a href="{{ route('empleado.reservaciones.index') }}">
+        <i class="bi bi-calendar-event-fill"></i> Reservaciones
+      </a>
+      <a href="{{ route('empleado.ventas.index') }}">
+        <i class="bi bi-cart-fill"></i> Ventas
+      </a>
     </nav>
 
     <div class="user-profile">
-  <p class="mb-0 text-white fw-bold">
-    {{ Auth::user()->name }} {{ Auth::user()->apellido }}
-  </p>
-  <small class="text-secondary">Administrador</small>
-</div>
-      <a href="{{ route('logout') }}" class="btn btn-logout mt-3"
-         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-         <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-      </a>
-      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-        @csrf
-      </form>
+      <p class="mb-0 text-white fw-bold">
+        {{ Auth::user()->name }} {{ Auth::user()->apellido }}
+      </p>
+      <small class="text-secondary">Empleado</small>
     </div>
+
+    <a href="{{ route('logout') }}" class="btn btn-logout mt-3"
+       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+       <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+    </a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+      @csrf
+    </form>
   </div>
 
   <div class="dashboard-content w-100">
     <div class="header-dashboard">
-      <h1>Panel de Administración</h1>
+      <h1>Panel de Empleado</h1>
       <div class="user-info d-flex align-items-center">
         <div class="d-none d-md-block">
-  <p class="mb-0 text-white fw-bold">
-    {{ Auth::user()->name }} {{ Auth::user()->apellido }}
-  </p>
-  <small class="text-secondary">Administrador</small>
-</div>
-
+          <p class="mb-0 text-white fw-bold">
+            {{ Auth::user()->name }} {{ Auth::user()->apellido }}
+          </p>
+          <small class="text-secondary">Empleado</small>
+        </div>
       </div>
     </div>
     @yield('content')
   </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+

@@ -21,7 +21,7 @@ class ProductoControlador extends Controller
      */
     public function create()
     {
-        return view('empleados.productos.create');
+        return view('productos.create');
     }
 
     /**
@@ -61,7 +61,7 @@ class ProductoControlador extends Controller
      */
     public function edit(Producto $producto)
     {
-        return view('empleados.productos.edit', compact('producto'));
+        return view('productos.edit', compact('producto'));
     }
 
     /**

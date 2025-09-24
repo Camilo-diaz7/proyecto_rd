@@ -5,16 +5,12 @@
 
 <h1 class="h4 mb-3">Crea tu reserva</h1>
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>       
-            @endforeach
-        </ul>
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
     </div>
 @endif
-<form action="{{ route('reservaciones.store') }}" method="POST">
+<form action="{{ route('cliente.reservaciones.store') }}" method="POST">
     @csrf
     <div class="mb-3">
         <label for="id" class="form-label">ID Usuario</label>
@@ -37,11 +33,11 @@
 
     <div class="mb-3">
         <label for="ocasion" class="form-label">Ocasion</label>
-        <textarea class="form-control" id="ocasion" name="ocasion" rows="5" {{ old('ocasion') }} required></textarea>
+        <textarea class="form-control" maxlengh="30" id="ocasion" name="ocasion" rows="5" {{ old('ocasion') }} required></textarea>
     </div>
 
     <button type="submit" class="btn btn-danger">Guardar</button>
-    <a href="{{ route('reservaciones.index') }}" class="btn btn-secondary" >Cancelar</a>
+    <a href="{{ route('cliente.reservaciones.index') }}" class="btn btn-secondary" >Cancelar</a>
 
 </form>
 @endsection

@@ -4,16 +4,12 @@
 @section('content')
 <h1 class="h4 mb-3">Editar tu reserva</h1>
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>       
-            @endforeach
-        </ul>
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
     </div>
 @endif
-<form action="{{ route('reservaciones.update', $reservacion) }}" method="POST">
+<form action="{{ route('cliente.reservaciones.update', $reservacion) }}" method="POST">
     @csrf
     @method('PUT')
 
@@ -44,7 +40,7 @@
     </div>
 
     <button type="submit" class="btn btn-danger">Actualizar</button>
-    <a href="{{ route('reservaciones.index') }}" class="btn btn-secondary">Cancelar</a>
+    <a href="{{ route('cliente.reservaciones.index') }}" class="btn btn-secondary">Cancelar</a>
 </form>
 
 

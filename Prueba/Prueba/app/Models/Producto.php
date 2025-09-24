@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $stock
  * @property float $precio_unitario
  * 
- * @property Collection|DetalleVentum[] $detalle_venta
+ * @property Collection|DetalleVenta[] $detalle_venta
  *
  * @package App\Models
  */
@@ -43,6 +43,6 @@ class Producto extends Model
 
 	public function detalle_venta()
 	{
-		return $this->hasMany(DetalleVentum::class, 'id_producto');
+		return $this->hasMany(DetalleVenta::class, 'id_producto');
 	}
 }

@@ -1,12 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.empleados')
 
 @section('content')
-  
+
 <div class="d-flex justify-content-between mb-3">
     <h1 class="h4">Reservaciones</h1>
     <a href="{{ route('empleado.reservaciones.create') }}" class="btn btn-danger">Nuevo</a>
 </div>
-
 <table class="table table-striped">
     <thead>
         <tr>
@@ -15,7 +14,6 @@
             <th>Cantidad de mesas</th>
             <th>Fecha de la reserva</th>
             <th>Ocasion</th>
-            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
