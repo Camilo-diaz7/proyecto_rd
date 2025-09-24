@@ -5,13 +5,9 @@
 
 <h1 class="h4 mb-3">Crea tu reserva</h1>
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>       
-            @endforeach
-        </ul>
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
     </div>
 @endif
 <form action="{{ route('cliente.reservaciones.store') }}" method="POST">

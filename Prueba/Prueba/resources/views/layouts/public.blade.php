@@ -76,52 +76,95 @@
             border-radius: 10px;
             margin-bottom: 1rem;
           }
-          .producto {
-            background-color: #000000;
-            border: 2px solid #ffffff; /* borde rojo oscuro */
-            border-radius: 25px;
-            padding: 1rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 2px 8px rgba(5, 10, 5, 5.1);
-            display: flex;
-            
-          }
+          body {
+      background-color: #fff; /* fondo blanco */
+      color: #000;
+    }
 
-          .producto:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 16px rgba(178, 58, 58, 0.985);
-          }
+    header {
+      background-color: #000;
+      padding: 1rem 0;
+      color: white;
+    }
 
-          .producto img {
-            border-radius: 10px;
-            margin-bottom: 10px;
-            max-height: 260px;
-            object-fit: contain;
-          }
+    .logo img {
+      max-width: 200px;
+    }
 
-          .producto p {
-            
-            margin: 0.2rem 0;
-            font-family: 'Oswald', sans-serif;
-            font-size: 1rem;
-          }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 1.5rem;
+    }
 
-          .footer {
-            background-color: #000000;
-            padding: 1rem;
-            text-align: center;
-            color: white;
-            margin-top: 2rem;
-          }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 19px;
+      margin-left: 15px;
+    }
 
-          .footer a {
-            color: #fff;
-            text-decoration: underline;
-          }
+    nav a:hover {
+      text-decoration: none;
+      color: rgb(156, 82, 82);
+    }
 
-          .footer a:hover {
-            color: #ffcccc;
-          }
+    .titulo2 {
+      color: #131313;
+      text-align: left;
+      font-size: 50px;
+      margin: 2rem 0 1rem;
+     font-family: "Oswald", sans-serif;
+    }
+
+    .producto {
+      background-color: #000000; /* fondo claro */
+      border: 2px solid #ffffff; /* borde rojo oscuro */
+      border-radius: 25px;
+      padding: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 2px 8px rgba(5, 10, 5, 5.1);
+      display: flex;
+      
+    }
+
+    .producto:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(178, 58, 58, 0.985);
+    }
+
+    .producto img {
+      border-radius: 10px;
+      margin-bottom: 10px;
+      max-height: 260px;
+      object-fit: contain;
+    }
+
+    .producto p {
+      margin: 0.2rem 0;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+    }
+
+    .footer {
+      background-color: #000000;
+      padding: 1rem;
+      text-align: center;
+      color: white;
+      margin-top: 2rem;
+    }
+
+    .footer a {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    .footer a:hover {
+      color: #ffcccc;
+    }
       </style>
       @vite(['resources/sass/app.scss', 'resources/js/app.js'])
   </head>

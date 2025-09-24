@@ -43,8 +43,7 @@ class BoletaController extends Controller
     ]);
 
     return redirect()
-        ->route('cliente.boletas.index')
-        ->with('success', 'Boleta creada correctamente 🎉');
+        ->route('cliente.boletas.index')->with('success', 'Boleta creada correctamente 🎉');
 }
     public function edit(Boleta $boleta)
     {
