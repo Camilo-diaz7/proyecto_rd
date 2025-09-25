@@ -12,14 +12,21 @@ class ventaControlador extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        {
-         $ventas = Venta::with('usuario')->get();
-    return view('empleado.ventas.index', compact('ventas'));
-        //lista del producto
+     {
+    $usuario = Auth::user();
+
+    if ($usuario->role === 'empleado') {
+        // Todas las reservaciones
+        $venta = venta::all();
+        return view('empleado.ventas.index', compact('venta'));
     }
-        //
+    if($usuario->role=='admin'){
+        $venta= Venta::all();
+        return view('admin.ventas.index',compact('venta'));
     }
+
+    abort(403, 'Acceso denegado');
+}
 
     /**
      * Show the form for creating a new resource.
@@ -33,21 +40,24 @@ class ventaControlador extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-                //public function store(Request $request)
+public function store(Request $request)
 {
     $validated = $request->validate([
-        'total' => 'required|numeric|min:0',
-        'metodo_pago' => 'required|in:efectivo,tarjeta,transferencia',
-        'id' => 'required|integer', // o auth()->id() si el usuario logueado hace la venta
+        'total'        => 'required|numeric|min:0',
+        'metodo_pago'  => 'required|in:efectivo,tarjeta,transferencia',
     ]);
 
-   Venta::create($validated);
-        return redirect()->route('ventas.index')->
-        with('success','registro exitoso de la venta');
-    }
+    // Asignar automáticamente el usuario logueado
+   $validated['id_usuario'] = $request->user()->id;
+
+
+    Venta::create($validated);
+
+    return redirect()->route('empleado.ventas.index')
+        ->with('success','Registro exitoso de la venta');
 }
+
+
 
 
     /**
