@@ -39,7 +39,7 @@
             color: white;
         }
         .form-control {
-            width: 100%;
+            width: 90%;
             padding: 10px;
             margin-bottom: 15px;
             border-radius: 5px;
@@ -55,19 +55,20 @@
             padding: 10px;
             border-radius: 5px;
             font-size: 1rem;
-            width: 100%;
+            width: 50%;
             cursor: pointer;
             margin-bottom: 10px;
         }
         .btn-gray {
-            background-color: #666;
+            width: 50%;
+            background-color: rgba(93, 93, 93, 1)000;
             color: white;
             border: none;
             padding: 10px;
             border-radius: 5px;
             font-size: 1rem;
-            width: 100%;
             cursor: pointer;
+            margin-bottom: 10px;
         }
         .btn-red:hover { background-color: #a00000; }
         .btn-gray:hover { background-color: #888; }

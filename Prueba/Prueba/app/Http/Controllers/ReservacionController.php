@@ -12,31 +12,104 @@ class ReservacionController extends Controller
         $usuario = Auth::user();
 
         if ($usuario->role === 'cliente') {
-            // Reservaciones solo de ese cliente
-            $reservaciones = Reservacion::where('id', $usuario->id)->get();
+            // Reservaciones solo de ese cliente con filtros
+            $query = Reservacion::where('id', $usuario->id);
+            
+            if ($request->filled('search')) {
+                $search = $request->search;
+                $query->where(function($q) use ($search) {
+                    $q->where('ocasion', 'like', "%{$search}%");
+                });
+            }
+            
+            if ($request->filled('fecha_desde')) {
+                $query->whereDate('fecha_reservacion', '>=', $request->fecha_desde);
+            }
+            
+            if ($request->filled('fecha_hasta')) {
+                $query->whereDate('fecha_reservacion', '<=', $request->fecha_hasta);
+            }
+            
+            if ($request->filled('personas_min')) {
+                $query->where('cantidad_personas', '>=', $request->personas_min);
+            }
+            
+            if ($request->filled('personas_max')) {
+                $query->where('cantidad_personas', '<=', $request->personas_max);
+            }
+            
+            $reservaciones = $query->orderBy('fecha_reservacion', 'desc')->get();
             return view('cliente.reservaciones.index', compact('reservaciones'));
         }
 
         if ($usuario->role === 'empleado') {
-            $reservaciones = Reservacion::with('user')->get();
+            $query = Reservacion::with('user');
+            
+            if ($request->filled('search')) {
+                $search = $request->search;
+                $query->where(function($q) use ($search) {
+                    $q->where('ocasion', 'like', "%{$search}%")
+                      ->orWhereHas('user', function($userQuery) use ($search) {
+                          $userQuery->where('name', 'like', "%{$search}%")
+                                   ->orWhere('apellido', 'like', "%{$search}%")
+                                   ->orWhere('numero_documento', 'like', "%{$search}%");
+                      });
+                });
+            }
+            
+            if ($request->filled('fecha_desde')) {
+                $query->whereDate('fecha_reservacion', '>=', $request->fecha_desde);
+            }
+            
+            if ($request->filled('fecha_hasta')) {
+                $query->whereDate('fecha_reservacion', '<=', $request->fecha_hasta);
+            }
+            
+            if ($request->filled('personas_min')) {
+                $query->where('cantidad_personas', '>=', $request->personas_min);
+            }
+            
+            if ($request->filled('personas_max')) {
+                $query->where('cantidad_personas', '<=', $request->personas_max);
+            }
+            
+            $reservaciones = $query->orderBy('fecha_reservacion', 'desc')->get();
             return view('empleado.reservaciones.index', compact('reservaciones'));
         }
 
         if ($usuario->role === 'admin') {
-            // Búsqueda por número de documento
-            $search = $request->get('search');
+            $query = Reservacion::with('user');
             
-            $reservaciones = Reservacion::with('user')
-                ->when($search, function ($query, $search) {
-                    return $query->whereHas('user', function ($userQuery) use ($search) {
-                        $userQuery->where('numero_documento', 'like', '%' . $search . '%')
-                                 ->orWhere('name', 'like', '%' . $search . '%');
-                    });
-                })
-                ->orderBy('fecha_reservacion', 'desc')
-                ->get();
-                
-            return view('empleados.reservaciones.index', compact('reservaciones', 'search'));
+            if ($request->filled('search')) {
+                $search = $request->search;
+                $query->where(function($q) use ($search) {
+                    $q->where('ocasion', 'like', "%{$search}%")
+                      ->orWhereHas('user', function($userQuery) use ($search) {
+                          $userQuery->where('name', 'like', "%{$search}%")
+                                   ->orWhere('apellido', 'like', "%{$search}%")
+                                   ->orWhere('numero_documento', 'like', "%{$search}%");
+                      });
+                });
+            }
+            
+            if ($request->filled('fecha_desde')) {
+                $query->whereDate('fecha_reservacion', '>=', $request->fecha_desde);
+            }
+            
+            if ($request->filled('fecha_hasta')) {
+                $query->whereDate('fecha_reservacion', '<=', $request->fecha_hasta);
+            }
+            
+            if ($request->filled('personas_min')) {
+                $query->where('cantidad_personas', '>=', $request->personas_min);
+            }
+            
+            if ($request->filled('personas_max')) {
+                $query->where('cantidad_personas', '<=', $request->personas_max);
+            }
+            
+            $reservaciones = $query->orderBy('fecha_reservacion', 'desc')->get();
+            return view('empleados.reservaciones.index', compact('reservaciones'));
         }
 
         abort(403, 'Acceso denegado');

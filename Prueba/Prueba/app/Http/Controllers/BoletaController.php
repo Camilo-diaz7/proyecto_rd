@@ -10,10 +10,95 @@ use Illuminate\Support\Facades\Auth;
 
 class BoletaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $boletas = Boleta::with('evento','user')->where('id', Auth::id())->get();
-        return view('cliente.boletas.index', compact('boletas'));
+        $usuario = Auth::user();
+        
+        if($usuario->role === 'admin'){
+            // Admin ve todas las boletas del sistema con filtros
+            $query = Boleta::with('evento','user');
+            
+            if ($request->filled('search')) {
+                $search = $request->search;
+                $query->where(function($q) use ($search) {
+                    $q->where('id_boleta', 'like', "%{$search}%")
+                      ->orWhereHas('user', function($userQuery) use ($search) {
+                          $userQuery->where('name', 'like', "%{$search}%")
+                                   ->orWhere('apellido', 'like', "%{$search}%")
+                                   ->orWhere('numero_documento', 'like', "%{$search}%");
+                      })
+                      ->orWhereHas('evento', function($eventoQuery) use ($search) {
+                          $eventoQuery->where('nombre_evento', 'like', "%{$search}%");
+                      });
+                });
+            }
+            
+            if ($request->filled('id_evento')) {
+                $query->where('id_evento', $request->id_evento);
+            }
+            
+            if ($request->filled('cantidad_min')) {
+                $query->where('cantidad_boletos', '>=', $request->cantidad_min);
+            }
+            
+            if ($request->filled('cantidad_max')) {
+                $query->where('cantidad_boletos', '<=', $request->cantidad_max);
+            }
+            
+            $boletas = $query->orderBy('id_boleta', 'desc')->get();
+            return view('empleados.boletas.index', compact('boletas'));
+        }
+
+        if($usuario->role === 'cliente'){
+            // Cliente ve solo sus propias boletas con filtros
+            $query = Boleta::with('evento','user')->where('id', Auth::id());
+            
+            if ($request->filled('search')) {
+                $search = $request->search;
+                $query->where(function($q) use ($search) {
+                    $q->where('id_boleta', 'like', "%{$search}%")
+                      ->orWhereHas('evento', function($eventoQuery) use ($search) {
+                          $eventoQuery->where('nombre_evento', 'like', "%{$search}%");
+                      });
+                });
+            }
+            
+            if ($request->filled('id_evento')) {
+                $query->where('id_evento', $request->id_evento);
+            }
+            
+            $boletas = $query->orderBy('id_boleta', 'desc')->get();
+            return view('cliente.boletas.index', compact('boletas'));
+        }
+
+        if($usuario->role === 'empleado'){
+            // Empleado ve todas las boletas del sistema con filtros
+            $query = Boleta::with('evento','user');
+            
+            if ($request->filled('search')) {
+                $search = $request->search;
+                $query->where(function($q) use ($search) {
+                    $q->where('id_boleta', 'like', "%{$search}%")
+                      ->orWhereHas('user', function($userQuery) use ($search) {
+                          $userQuery->where('name', 'like', "%{$search}%")
+                                   ->orWhere('apellido', 'like', "%{$search}%")
+                                   ->orWhere('numero_documento', 'like', "%{$search}%");
+                      })
+                      ->orWhereHas('evento', function($eventoQuery) use ($search) {
+                          $eventoQuery->where('nombre_evento', 'like', "%{$search}%");
+                      });
+                });
+            }
+            
+            if ($request->filled('id_evento')) {
+                $query->where('id_evento', $request->id_evento);
+            }
+            
+            $boletas = $query->orderBy('id_boleta', 'desc')->get();
+            return view('empleado.boletas.index', compact('boletas'));
+        }
+
+        abort(403, 'Acceso denegado');
     }
 
      public function create()
@@ -25,6 +110,8 @@ class BoletaController extends Controller
         $eventos = Evento::all();
 
         return view('cliente.boletas.create', compact('usuarios', 'eventos'));
+
+        
     }
 
     public function store(Request $request)

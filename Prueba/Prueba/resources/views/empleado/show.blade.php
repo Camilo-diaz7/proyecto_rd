@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-    <h1>👨‍💼 Lista de Empleados</h1>
+    <h1>Lista de Empleados</h1>
 
     {{-- Tabla solo lectura: empleados --}}
     <table class="table mt-3 table-striped table-hover shadow-sm">
@@ -35,7 +35,7 @@
 
     <hr class="my-5">
 
-    <h1>👥 Lista de Clientes</h1>
+    <h1>Lista de Clientes</h1>
     {{-- Tabla solo lectura: clientes --}}
     <table class="table mt-3 table-striped table-hover shadow-sm">
         <thead class="table-success">

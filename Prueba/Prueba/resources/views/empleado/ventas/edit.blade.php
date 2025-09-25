@@ -18,8 +18,11 @@
     @method('PUT')
     
     <div class="mb-3">
-        <label for="total" class="form-label">Total</label>
-        <input type="number" class="form-control" id="total" name="total" value="{{ old('total', $venta->total) }}" required>
+        <label class="form-label">Total (Calculado Automáticamente)</label>
+        <div class="form-control bg-light">
+            <strong>${{ number_format($venta->total_calculado, 2) }}</strong>
+            <small class="text-muted">- Se actualizará automáticamente basado en los detalles de venta</small>
+        </div>
     </div>
  
     <div class="mb-3">

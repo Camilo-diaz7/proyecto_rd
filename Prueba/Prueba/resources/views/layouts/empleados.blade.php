@@ -112,7 +112,7 @@
 
     <nav>
         <a href="{{ route('empleado.empl')}}">
-            <i class="bi bi-calendar-event-fill">Empleados</i>
+            <i class="bi bi-calendar-event-fill">Usuarios</i>
         </a>
       <a href="{{ route('empleado.reservaciones.index') }}">
         <i class="bi bi-calendar-event-fill"></i> Reservaciones

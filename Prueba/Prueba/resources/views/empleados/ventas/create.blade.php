@@ -1,11 +1,9 @@
 @extends('layouts.admin')
 
-@section('title', 'crear tu reserva')
 
 @section('content')
 
 
-<h1 class="h4 mb-3">Crea tu reserva Admin!</h1>
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -27,11 +25,6 @@
         </div>
         <input type="hidden" name="id" value="{{ Auth::id() }}">
     </div>
-    <div class="mb-3">
-        <label>Total</label>
-        <input type="number" step="0.01" class="form-control" name="total" value="{{ old('total') }}" required>
-    </div>
-
     <div class="mb-3">
         <label>Método de Pago</label>
         <select class="form-control" name="metodo_pago" required>

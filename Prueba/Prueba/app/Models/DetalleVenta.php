@@ -53,4 +53,38 @@ class DetalleVenta extends Model
 	{
 		return $this->belongsTo(Producto::class, 'id_producto');
 	}
+
+	/**
+	 * Eventos del modelo para actualizar automáticamente el total de la venta
+	 */
+	protected static function boot()
+	{
+		parent::boot();
+
+		static::created(function ($detalleVenta) {
+			if ($detalleVenta->venta) {
+				$detalleVenta->venta->actualizarTotal();
+			}
+		});
+
+		static::updated(function ($detalleVenta) {
+			if ($detalleVenta->venta) {
+				$detalleVenta->venta->actualizarTotal();
+			}
+		});
+
+		static::deleted(function ($detalleVenta) {
+			if ($detalleVenta->venta) {
+				$detalleVenta->venta->actualizarTotal();
+			}
+		});
+	}
+
+	/**
+	 * Calcula el subtotal de este detalle
+	 */
+	public function getSubtotalAttribute()
+	{
+		return $this->precio_unitario * $this->cantidad_productos;
+	}
 }

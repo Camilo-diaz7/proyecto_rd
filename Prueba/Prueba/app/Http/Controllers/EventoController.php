@@ -9,9 +9,53 @@ class EventoController extends Controller
 {
     
 
-    public function index()
+    public function index(Request $request)
     {
-        $eventos = Evento::all();
+        // Construir query base
+        $query = Evento::query();
+
+        // Aplicar filtros
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nombre_evento', 'like', "%{$search}%")
+                  ->orWhere('descripcion', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('fecha_desde')) {
+            $query->whereDate('fecha', '>=', $request->fecha_desde);
+        }
+
+        if ($request->filled('fecha_hasta')) {
+            $query->whereDate('fecha', '<=', $request->fecha_hasta);
+        }
+
+        if ($request->filled('precio_min')) {
+            $query->where('precio_boleta', '>=', $request->precio_min);
+        }
+
+        if ($request->filled('precio_max')) {
+            $query->where('precio_boleta', '<=', $request->precio_max);
+        }
+
+        if ($request->filled('capacidad_min')) {
+            $query->where('capacidad_maxima', '>=', $request->capacidad_min);
+        }
+
+        if ($request->filled('capacidad_max')) {
+            $query->where('capacidad_maxima', '<=', $request->capacidad_max);
+        }
+
+        if ($request->filled('eventos_pasados')) {
+            $query->whereDate('fecha', '<', now()->toDateString());
+        }
+
+        if ($request->filled('eventos_futuros')) {
+            $query->whereDate('fecha', '>=', now()->toDateString());
+        }
+
+        $eventos = $query->orderBy('fecha', 'desc')->get();
         return view('empleados.eventos.index', compact('eventos'));
     }
   

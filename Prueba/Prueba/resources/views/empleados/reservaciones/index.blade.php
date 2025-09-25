@@ -4,43 +4,51 @@
 <div class="container">
     <h2>Lista de Reservaciones</h2>
     
-    <!-- Barra de búsqueda -->
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <form action="{{ route('admin.reservaciones.index') }}" method="GET" class="d-flex">
-                <div class="input-group">
-                    <input type="text" 
-                           name="search" 
-                           class="form-control" 
-                           placeholder="Buscar por nombre o número de documento..." 
-                           value="{{ $search ?? '' }}">
-                    <button class="btn btn-outline-secondary" type="submit">
-                        <i class="fas fa-search"></i> Buscar
-                    </button>
-                    @if(!empty($search))
-                        <a href="{{ route('admin.reservaciones.index') }}" class="btn btn-outline-danger">
-                            <i class="fas fa-times"></i> Limpiar
-                        </a>
-                    @endif
+    <!-- Filtros de búsqueda -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">🔍 Filtros de Búsqueda</h5>
+        </div>
+        <div class="card-body">
+            <form method="GET" action="{{ route('admin.reservaciones.index') }}" class="row g-3">
+                <div class="col-md-3">
+                    <label for="search" class="form-label">Búsqueda General</label>
+                    <input type="text" class="form-control" id="search" name="search" 
+                           value="{{ request('search') }}" placeholder="Cliente, ocasión...">
+                </div>
+                
+                <div class="col-md-2">
+                    <label for="fecha_desde" class="form-label">Fecha Desde</label>
+                    <input type="date" class="form-control" id="fecha_desde" name="fecha_desde" 
+                           value="{{ request('fecha_desde') }}">
+                </div>
+                
+                <div class="col-md-2">
+                    <label for="fecha_hasta" class="form-label">Fecha Hasta</label>
+                    <input type="date" class="form-control" id="fecha_hasta" name="fecha_hasta" 
+                           value="{{ request('fecha_hasta') }}">
+                </div>
+                
+                <div class="col-md-1">
+                    <label for="personas_min" class="form-label">Personas Min</label>
+                    <input type="number" class="form-control" id="personas_min" name="personas_min" 
+                           value="{{ request('personas_min') }}" placeholder="0" min="0">
+                </div>
+                
+                <div class="col-md-1">
+                    <label for="personas_max" class="form-label">Personas Max</label>
+                    <input type="number" class="form-control" id="personas_max" name="personas_max" 
+                           value="{{ request('personas_max') }}" placeholder="∞" min="0">
+                </div>
+                
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary me-2">Filtrar</button>
+                    <a href="{{ route('admin.reservaciones.index') }}" class="btn btn-secondary">Limpiar</a>
+                    <a href="{{ route('admin.reservaciones.create') }}" class="btn btn-success ms-2">Nueva Reserva</a>
                 </div>
             </form>
         </div>
-        <div class="col-md-6 text-end">
-            <a href="{{ route('admin.reservaciones.create') }}" class="btn btn-primary">Nueva Reserva</a>
-        </div>
     </div>
-
-    @if(!empty($search))
-        <div class="alert alert-info">
-            <i class="fas fa-info-circle"></i> 
-            Mostrando resultados para: <strong>"{{ $search }}"</strong>
-            @if($reservaciones->count() == 0)
-                - No se encontraron reservaciones.
-            @else
-                - {{ $reservaciones->count() }} reservación(es) encontrada(s).
-            @endif
-        </div>
-    @endif
 <table class="table mt-3 table-striped">
     <thead>
         <tr>

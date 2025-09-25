@@ -12,17 +12,53 @@ class ventaControlador extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
      {
     $usuario = Auth::user();
 
+    // Construir query base
+    $query = Venta::with(['usuario', 'detalle_venta']);
+
+    // Aplicar filtros
+    if ($request->filled('search')) {
+        $search = $request->search;
+        $query->where(function($q) use ($search) {
+            $q->where('id_venta', 'like', "%{$search}%")
+              ->orWhere('metodo_pago', 'like', "%{$search}%")
+              ->orWhereHas('usuario', function($userQuery) use ($search) {
+                  $userQuery->where('name', 'like', "%{$search}%")
+                           ->orWhere('apellido', 'like', "%{$search}%")
+                           ->orWhere('numero_documento', 'like', "%{$search}%");
+              });
+        });
+    }
+
+    if ($request->filled('metodo_pago')) {
+        $query->where('metodo_pago', $request->metodo_pago);
+    }
+
+    if ($request->filled('fecha_desde')) {
+        $query->whereDate('fecha', '>=', $request->fecha_desde);
+    }
+
+    if ($request->filled('fecha_hasta')) {
+        $query->whereDate('fecha', '<=', $request->fecha_hasta);
+    }
+
+    if ($request->filled('total_min')) {
+        $query->where('total', '>=', $request->total_min);
+    }
+
+    if ($request->filled('total_max')) {
+        $query->where('total', '<=', $request->total_max);
+    }
+
+    $ventas = $query->orderBy('fecha', 'desc')->get();
+
     if ($usuario->role === 'empleado') {
-        // Todas las ventas
-        $ventas = Venta::with('usuario')->get();
         return view('empleado.ventas.index', compact('ventas'));
     }
     if($usuario->role=='admin'){
-        $ventas = Venta::with('usuario')->get();
         return view('empleados.ventas.index',compact('ventas'));
     }
 
@@ -34,8 +70,16 @@ class ventaControlador extends Controller
      */
     public function create()
     {
-        //formulario donde estan los campos a registrar
-        return view('empleados.ventas.create');
+        $usuario = Auth::user();
+        
+        if ($usuario->role === 'empleado') {
+            return view('empleado.ventas.create');
+        }
+        if ($usuario->role === 'admin') {
+            return view('empleados.ventas.create');
+        }
+        
+        abort(403, 'Acceso denegado');
     }
 
     /**
@@ -44,18 +88,26 @@ class ventaControlador extends Controller
 public function store(Request $request)
 {
     $validated = $request->validate([
-        'total'        => 'required|numeric|min:0',
         'metodo_pago'  => 'required|in:efectivo,tarjeta,transferencia',
     ]);
 
     // Asignar automáticamente el usuario logueado
-   $validated['id'] = $request->user()->id;
+    $validated['id'] = $request->user()->id;
+    
+    // Inicializar el total en 0 - se calculará automáticamente cuando se agreguen detalles
+    $validated['total'] = 0;
 
+    $venta = Venta::create($validated);
 
-    Venta::create($validated);
-
-    return redirect()->route('empleados.ventas.index')
-        ->with('success','Registro exitoso de la venta');
+    $usuario = Auth::user();
+    
+    if ($usuario->role === 'admin') {
+        return redirect()->route('admin.ventas.index')
+            ->with('success','Registro exitoso de la venta. Ahora puedes agregar detalles para calcular el total automáticamente.');
+    } else {
+        return redirect()->route('empleado.ventas.index')
+            ->with('success','Registro exitoso de la venta. Ahora puedes agregar detalles para calcular el total automáticamente.');
+    }
 }
 
 
@@ -74,7 +126,16 @@ public function store(Request $request)
      */
     public function edit(Venta $venta)
     {
-        return view('empleados.ventas.edit', compact('venta'));
+        $usuario = Auth::user();
+        
+        if ($usuario->role === 'empleado') {
+            return view('empleado.ventas.edit', compact('venta'));
+        }
+        if ($usuario->role === 'admin') {
+            return view('empleados.ventas.edit', compact('venta'));
+        }
+        
+        abort(403, 'Acceso denegado');
     }
 
     /**
@@ -83,13 +144,23 @@ public function store(Request $request)
     public function update(Request $request, Venta $venta)
     {
         $validated = $request->validate([
-            'total' => 'required|numeric|min:0',
             'metodo_pago' => 'required|in:efectivo,tarjeta,transferencia',
         ]);
 
         $venta->update($validated);
-        return redirect()->route('admin.ventas.index')
-                        ->with('success', 'Registro actualizado de la venta');
+        
+        // Recalcular el total después de actualizar
+        $venta->actualizarTotal();
+        
+        $usuario = Auth::user();
+        
+        if ($usuario->role === 'admin') {
+            return redirect()->route('admin.ventas.index')
+                ->with('success', 'Venta actualizada. El total se ha recalculado automáticamente.');
+        } else {
+            return redirect()->route('empleado.ventas.index')
+                ->with('success', 'Venta actualizada. El total se ha recalculado automáticamente.');
+        }
     }
 
     /**

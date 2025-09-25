@@ -48,6 +48,8 @@
         <!-- Botones -->
         <button type="submit" class="btn-red">Aceptar</button>
         <a href="{{ url('/') }}" class="btn-gray d-block text-center">Cancelar</a>
+        <br>
+        <a href="{{route ('register')}}" class="btn-gray d-block text-center">Registrate</a>
     </form>
 </div>
 @endsection

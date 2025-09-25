@@ -32,7 +32,7 @@
                 <option value="{{ $producto->id_producto }}" 
                         data-precio="{{ $producto->precio_unitario }}"
                         {{ old('id_producto') == $producto->id_producto ? 'selected' : '' }}>
-                    {{ $producto->id_producto }} - {{ $producto->nombre }} (${{ number_format($producto->precio_unitario, 2) }})
+                    {{ $producto->id_producto }} - {{ $producto->nombre }} (${{ number_format($producto->precio_unitario, 3) }})
                 </option>
             @endforeach
         </select>

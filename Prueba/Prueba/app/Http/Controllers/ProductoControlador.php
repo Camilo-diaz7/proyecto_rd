@@ -10,9 +10,45 @@ class ProductoControlador extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $productos = Producto::all();
+        // Construir query base
+        $query = Producto::query();
+
+        // Aplicar filtros
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nombre', 'like', "%{$search}%")
+                  ->orWhere('tipo_producto', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('tipo_producto')) {
+            $query->where('tipo_producto', $request->tipo_producto);
+        }
+
+        if ($request->filled('precio_min')) {
+            $query->where('precio_unitario', '>=', $request->precio_min);
+        }
+
+        if ($request->filled('precio_max')) {
+            $query->where('precio_unitario', '<=', $request->precio_max);
+        }
+
+        if ($request->filled('stock_min')) {
+            $query->where('stock', '>=', $request->stock_min);
+        }
+
+        if ($request->filled('stock_max')) {
+            $query->where('stock', '<=', $request->stock_max);
+        }
+
+        if ($request->filled('sin_stock')) {
+            $query->where('stock', '=', 0);
+        }
+
+        $productos = $query->orderBy('nombre')->get();
 
         if (auth()->user()->hasRole('admin')) {
             return view('empleados.productos.index', compact('productos'));

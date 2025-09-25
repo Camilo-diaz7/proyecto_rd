@@ -14,9 +14,9 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $evento->nombre_evento }}</h5>
                         <p class="card-text">
-                            📅 {{ $evento->fecha }} <br>
-                            ⏰ {{ $evento->hora_inicio }} <br>
-                            👥 Capacidad: {{ $evento->capacidad_maxima }}
+                            {{ $evento->fecha }} <br>
+                            {{ $evento->hora_inicio }} <br>
+                            Capacidad: {{ $evento->capacidad_maxima }}
                         </p>
                         <p class="card-text text-muted">
                             {{ $evento->descripción }}

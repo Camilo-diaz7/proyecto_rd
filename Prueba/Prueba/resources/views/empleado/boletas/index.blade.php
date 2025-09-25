@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.empleados')
 
 @section('content')
 <div class="container">
@@ -10,11 +10,11 @@
             <h5 class="mb-0">Filtros de Búsqueda</h5>
         </div>
         <div class="card-body">
-            <form method="GET" action="{{ route('cliente.boletas.index') }}" class="row g-3">
+            <form method="GET" action="{{ route('empleado.boletas.index') }}" class="row g-3">
                 <div class="col-md-4">
                     <label for="search" class="form-label">Búsqueda General</label>
                     <input type="text" class="form-control" id="search" name="search" 
-                           value="{{ request('search') }}" placeholder="ID, evento...">
+                           value="{{ request('search') }}" placeholder="ID, cliente, evento...">
                 </div>
                 
                 <div class="col-md-3">
@@ -29,10 +29,21 @@
                     </select>
                 </div>
                 
-                <div class="col-md-5 d-flex align-items-end">
+                <div class="col-md-1">
+                    <label for="cantidad_min" class="form-label">Cant. Min</label>
+                    <input type="number" class="form-control" id="cantidad_min" name="cantidad_min" 
+                           value="{{ request('cantidad_min') }}" placeholder="0" min="0">
+                </div>
+                
+                <div class="col-md-1">
+                    <label for="cantidad_max" class="form-label">Cant. Max</label>
+                    <input type="number" class="form-control" id="cantidad_max" name="cantidad_max" 
+                           value="{{ request('cantidad_max') }}" placeholder="∞" min="0">
+                </div>
+                
+                <div class="col-md-3 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary me-2">Filtrar</button>
-                    <a href="{{ route('cliente.boletas.index') }}" class="btn btn-secondary me-2">Limpiar</a>
-                    <a href="{{ route('cliente.boletas.create') }}" class="btn btn-danger">Nueva Boleta</a>
+                    <a href="{{ route('empleado.boletas.index') }}" class="btn btn-secondary">Limpiar</a>
                 </div>
             </form>
         </div>
@@ -71,10 +82,10 @@
                 <td>{{ $boleta->cantidad_boletos }}</td>
 
                 {{-- Precio Unitario --}}
-                <td>$ {{ number_format($boleta->evento?->precio_boleta ?? 0, 3) }}</td>
+                <td>$ {{ number_format($boleta->evento?->precio_boleta ?? 0, 2) }}</td>
 
                 {{-- Total --}}
-                <td>$ {{ number_format($boleta->cantidad_boletos * ($boleta->evento?->precio_boleta ?? 0), 3) }}</td>
+                <td>$ {{ number_format($boleta->cantidad_boletos * ($boleta->evento?->precio_boleta ?? 0), 2) }}</td>
 
                 {{-- Acciones --}}
                 <td>

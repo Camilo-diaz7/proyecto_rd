@@ -11,10 +11,44 @@ class EmpleadoController extends Controller
     /**
      * Listar empleados y clientes.
      */
-  public function index()
+  public function index(Request $request)
 {
-    $empleados = User::where('role', 'empleado')->get();
-    $clientes = User::where('role', 'cliente')->get();
+    // Construir query base para empleados
+    $empleadosQuery = User::where('role', 'empleado');
+    $clientesQuery = User::where('role', 'cliente');
+
+    // Aplicar filtros para empleados
+    if ($request->filled('search_empleados')) {
+        $search = $request->search_empleados;
+        $empleadosQuery->where(function($q) use ($search) {
+            $q->where('name', 'like', "%{$search}%")
+              ->orWhere('apellido', 'like', "%{$search}%")
+              ->orWhere('email', 'like', "%{$search}%")
+              ->orWhere('numero_documento', 'like', "%{$search}%");
+        });
+    }
+
+    if ($request->filled('tipo_documento_empleados')) {
+        $empleadosQuery->where('tipo_documento', $request->tipo_documento_empleados);
+    }
+
+    // Aplicar filtros para clientes
+    if ($request->filled('search_clientes')) {
+        $search = $request->search_clientes;
+        $clientesQuery->where(function($q) use ($search) {
+            $q->where('name', 'like', "%{$search}%")
+              ->orWhere('apellido', 'like', "%{$search}%")
+              ->orWhere('email', 'like', "%{$search}%")
+              ->orWhere('numero_documento', 'like', "%{$search}%");
+        });
+    }
+
+    if ($request->filled('tipo_documento_clientes')) {
+        $clientesQuery->where('tipo_documento', $request->tipo_documento_clientes);
+    }
+
+    $empleados = $empleadosQuery->orderBy('name')->get();
+    $clientes = $clientesQuery->orderBy('name')->get();
 
     return view('empleados.index', compact('empleados', 'clientes'));
 }

@@ -55,10 +55,13 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('productos', ProductoControlador::class);
     Route::resource('eventos', EventoController::class);
     Route::resource('reservaciones', ReservacionController::class);
+    Route::resource('boletas', BoletaController::class);
     
     // Rutas para detalles de venta
     Route::resource('detalles', DetalleVentaControlador::class);
     Route::get('detalles/venta/{venta}', [DetalleVentaControlador::class, 'porVenta'])->name('detalles.porVenta');
+    Route::get('detalles/multiple/create', [DetalleVentaControlador::class, 'createMultiple'])->name('detalles.createMultiple');
+    Route::post('detalles/multiple/store', [DetalleVentaControlador::class, 'storeMultiple'])->name('detalles.storeMultiple');
 });
 
 /*
@@ -99,6 +102,9 @@ Route::prefix('empleado')->name('empleado.')->middleware('auth')->group(function
     // Solo lectura de ventas y reservaciones
     Route::resource('ventas', ventaControlador::class);
     Route::resource('reservaciones', ReservacionController::class)->only(['index']);
+    Route::resource('boletas', BoletaController::class)->only(['index']);
     Route::get('detalles/venta/{venta}', [DetalleVentaControlador::class, 'porVenta'])->name('detalles.porVenta');
+    Route::get('detalles/multiple/create', [DetalleVentaControlador::class, 'createMultiple'])->name('detalles.createMultiple');
+    Route::post('detalles/multiple/store', [DetalleVentaControlador::class, 'storeMultiple'])->name('detalles.storeMultiple');
 
 });

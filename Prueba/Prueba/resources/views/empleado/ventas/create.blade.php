@@ -19,14 +19,14 @@
 <form action="{{ route('empleado.ventas.store') }}" method="POST">
     @csrf
     <div class="mb-3">
-    <label for="id_usuario" class="form-label">ID Usuario</label>
-    <input type="number" class="form-control" id="id_usuario" name="id_usuario" value="{{ old('id_usuario') }}" required>
-</div>
-    <div class="mb-3">
-        <label for="total" class="form-label">Total</label>
-        <input type="number" class="form-control" id="total" name="total" value="{{ old('total') }}" required>
+        <label>Usuario</label>
+        <div class="form-control bg-light">
+            <strong>ID:</strong> {{ Auth::user()->id }} | 
+            <strong>Nombre:</strong> {{ Auth::user()->name }} {{ Auth::user()->apellido }} | 
+            <strong>Documento:</strong> {{ Auth::user()->numero_documento }}
+        </div>
+        <input type="hidden" name="id" value="{{ Auth::id() }}">
     </div>
-
     <div class="mb-3">
     <label for="metodo_pago" class="form-label">Método de Pago</label>
     <select class="form-select" name="metodo_pago" id="metodo_pago" required>

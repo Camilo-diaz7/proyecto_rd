@@ -3,6 +3,74 @@
 @section('content')
 <div class="container">
     <h2>Lista de Eventos</h2>
+    
+    <!-- Filtros de búsqueda -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">🔍 Filtros de Búsqueda</h5>
+        </div>
+        <div class="card-body">
+            <form method="GET" action="{{ route('admin.eventos.index') }}" class="row g-3">
+                <div class="col-md-3">
+                    <label for="search" class="form-label">Búsqueda General</label>
+                    <input type="text" class="form-control" id="search" name="search" 
+                           value="{{ request('search') }}" placeholder="Nombre del evento, descripción...">
+                </div>
+                
+                <div class="col-md-2">
+                    <label for="fecha_desde" class="form-label">Fecha Desde</label>
+                    <input type="date" class="form-control" id="fecha_desde" name="fecha_desde" 
+                           value="{{ request('fecha_desde') }}">
+                </div>
+                
+                <div class="col-md-2">
+                    <label for="fecha_hasta" class="form-label">Fecha Hasta</label>
+                    <input type="date" class="form-control" id="fecha_hasta" name="fecha_hasta" 
+                           value="{{ request('fecha_hasta') }}">
+                </div>
+                
+                <div class="col-md-1">
+                    <label for="precio_min" class="form-label">Precio Min</label>
+                    <input type="number" class="form-control" id="precio_min" name="precio_min" 
+                           value="{{ request('precio_min') }}" placeholder="0" step="0.01">
+                </div>
+                
+                <div class="col-md-1">
+                    <label for="precio_max" class="form-label">Precio Max</label>
+                    <input type="number" class="form-control" id="precio_max" name="precio_max" 
+                           value="{{ request('precio_max') }}" placeholder="∞" step="0.01">
+                </div>
+                
+                <div class="col-md-1">
+                    <label for="capacidad_min" class="form-label">Cap. Min</label>
+                    <input type="number" class="form-control" id="capacidad_min" name="capacidad_min" 
+                           value="{{ request('capacidad_min') }}" placeholder="0" min="0">
+                </div>
+                
+                <div class="col-md-1">
+                    <label for="capacidad_max" class="form-label">Cap. Max</label>
+                    <input type="number" class="form-control" id="capacidad_max" name="capacidad_max" 
+                           value="{{ request('capacidad_max') }}" placeholder="∞" min="0">
+                </div>
+                
+                <div class="col-md-1">
+                    <div class="form-check mt-4">
+                        <input class="form-check-input" type="checkbox" id="eventos_futuros" name="eventos_futuros" 
+                               value="1" {{ request('eventos_futuros') ? 'checked' : '' }}>
+                        <label class="form-check-label" for="eventos_futuros">
+                            Futuros
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="col-md-1 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary me-2">Filtrar</button>
+                    <a href="{{ route('admin.eventos.index') }}" class="btn btn-secondary">Limpiar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
     <a href="{{ route('admin.eventos.create') }}" class="btn btn-primary">Nuevo Evento</a>
 
     @if(session('success'))

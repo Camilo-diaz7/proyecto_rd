@@ -13,8 +13,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.productos.update', $producto) }}" method="POST">
-    <form action="{{ route('admin.productos.update', $producto) }}" method="POST">
+    <form action="{{ route('admin.productos.update', $producto) }}" method="POST" enctype="multipart/form-data" >
         @csrf
         @method('PUT')
 
@@ -37,8 +36,14 @@
             <label for="stock">Stock:</label>
             <input type="number" name="stock" class="form-control" id="stock" value="{{ old('stock', $producto->stock) }}" required>
         </div>
+        <br>
 
-        <button type="submit">Actualizar</button>
-        <a href="{{ route('admin.productos.index') }}">Cancelar</a>
+        <div class="mb-3">
+            <label>Imagen</label>
+            <input type="file" name="imagen" class="form-control" accept="image/*">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <a href="{{ route('admin.productos.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 @endsection

@@ -130,7 +130,7 @@
     </div>
     <nav>
       <a href="{{ route('admin.empleados.index') }}" class="active">
-        <i class="bi bi-people-fill"></i> Empleados
+        <i class="bi bi-people-fill"></i> Usuarios
       </a>
       <a href="{{route('admin.eventos.index')}}">
         <i class="bi bi-calendar-event-fill"></i> Eventos
@@ -144,19 +144,15 @@
       <a href="{{route('admin.productos.index')  }}">
         <i class="bi bi-gear-fill"></i> Productos
       </a>
-
- 
+            <a href="{{route('admin.boletas.index')  }}">
+        <i class="bi bi-gear-fill"></i> Boletas
+      </a>
     </nav>
 
-    <div class="user-profile">
-  <p class="mb-0 text-white fw-bold">
-    {{ Auth::user()->name }} {{ Auth::user()->apellido }}
-  </p>
-  <small class="text-secondary">Administrador</small>
-</div>
-      <a href="{{ route('logout') }}" class="btn btn-logout mt-3"
+
+      <a href="{{ route('logout') }}" class="btn btn-danger"
          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-         <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+         Cerrar Sesión
       </a>
       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
         @csrf

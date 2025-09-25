@@ -53,4 +53,32 @@ class Venta extends Model
     {
         return $this->hasMany(DetalleVenta::class, 'id_venta');
     }
+
+    /**
+     * Calcula el total de la venta basado en los detalles
+     */
+    public function calcularTotal()
+    {
+        return $this->detalle_venta->sum(function ($detalle) {
+            return $detalle->precio_unitario * $detalle->cantidad_productos;
+        });
+    }
+
+    /**
+     * Actualiza el total de la venta automáticamente
+     */
+    public function actualizarTotal()
+    {
+        $this->total = $this->calcularTotal();
+        $this->save();
+        return $this->total;
+    }
+
+    /**
+     * Accessor para el total calculado
+     */
+    public function getTotalCalculadoAttribute()
+    {
+        return $this->calcularTotal();
+    }
 }
