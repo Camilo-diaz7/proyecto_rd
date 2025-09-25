@@ -98,4 +98,3 @@ public function edit(Reservacion $reservacion)
         return redirect()->route('cliente.reservaciones.index')
                          ->with('success', 'Reservación eliminada correctamente');
     }
-}
