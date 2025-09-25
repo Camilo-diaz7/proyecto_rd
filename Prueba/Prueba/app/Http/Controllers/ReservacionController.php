@@ -9,23 +9,26 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservacionController extends Controller
 {
-    public function index()
-    {
-        $reservaciones = Reservacion::where('id', Auth::id())->get();
-        return view('empleados.reservaciones.index',compact('reservaciones'));
-        //lista del producto
+ public function index()
+{
+    $usuario = Auth::user(); // obtiene el usuario autenticado
+
+    if ($usuario->role === "cliente") {
+        $reservaciones = Reservacion::where('id', $usuario->id)->get();
+        return view('cliente.reservaciones.index', compact('reservaciones'));
     }
 
-    ($usuario->role === 'empleado') {
-        // Todas las reservaciones
+    if ($usuario->role === "empleado") {
         $reservaciones = Reservacion::all();
-        return view('empleado.reservaciones.index', compact('reservaciones'));
-    }
-    if ($usuario->role==="admin"){
-        $reservaciones=Reservacion::all();
-        return view('admin.reservaciones.index',compact('reservaciones'));
+        return view('empleados.reservaciones.index', compact('reservaciones'));
     }
 
+    if ($usuario->role === "admin") {
+        $reservaciones = Reservacion::all();
+        return view('admin.reservaciones.index', compact('reservaciones'));
+    }
+
+    // Si no entra a ningún if
     abort(403, 'Acceso denegado');
 }
 

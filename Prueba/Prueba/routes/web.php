@@ -71,7 +71,7 @@ Route::prefix('cliente')->name('cliente.')->middleware('auth')->group(function (
     })->name('dashboard');
 
     Route::resource('boletas', BoletaController::class);
-    Route::resource('reservaciones', ReservacionController::class)->parameters(['reservaciones' => 'reservacion']);
+    Route::resource('reservacion', ReservacionController::class)->parameters(['reservacion' => 'reservacion']);
 });
 
 /*
