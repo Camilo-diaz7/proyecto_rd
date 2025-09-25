@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('title', 'Edita tu reservacion')
 
 @section('content')
@@ -13,7 +13,7 @@
         </ul>
     </div>
 @endif
-<form action="{{ route('reservaciones.update', $reservacion) }}" method="POST">
+<form action="{{ route('admin.reservaciones.update', $reservacion) }}" method="POST">
     @csrf
     @method('PUT')
     
@@ -36,6 +36,6 @@
 
     </div>
     <button type="submit" class="btn btn-danger">Actualizar</button>
-    <a href="{{ route('reservaciones.index') }}" class="btn btn-secondary">Cancelar</a>
+    <a href="{{ route('admin.reservaciones.index') }}" class="btn btn-secondary">Cancelar</a>
 </form>
 @endsection

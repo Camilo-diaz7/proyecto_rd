@@ -7,19 +7,16 @@ use App\Models\Reservacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class reservacionControlador extends Controller
+class ReservacionController extends Controller
 {
     public function index()
- {
-    $usuario = Auth::user();
-
-    if ($usuario->role === 'cliente') {
-        // Solo las reservaciones de ese cliente
-        $reservaciones = Reservacion::where('id', $usuario->id)->get();
-        return view('cliente.reservaciones.index', compact('reservaciones'));
+    {
+        $reservaciones = Reservacion::where('id', Auth::id())->get();
+        return view('empleados.reservaciones.index',compact('reservaciones'));
+        //lista del producto
     }
 
-    if ($usuario->role === 'empleado') {
+    ($usuario->role === 'empleado') {
         // Todas las reservaciones
         $reservaciones = Reservacion::all();
         return view('empleado.reservaciones.index', compact('reservaciones'));
@@ -34,17 +31,18 @@ class reservacionControlador extends Controller
 
     public function create()
     {
-        return view('cliente.reservaciones.create');
+        //formulario donde estan los campos a registrar
+        return view('empleados.reservaciones.create');
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'cantidad_personas' => 'required|integer',
-            'cantidad_mesas' => 'required|integer',
-            'fecha_reservacion' => 'required|date',
-            'ocasion' => 'nullable|string',
-        ]);
+{
+    $request->validate([
+        'cantidad_personas' => 'required|integer',
+        'cantidad_mesas' => 'required|integer',
+        'fecha_reservacion' => 'required|date',
+        'ocasion' => 'nullable|string',
+    ]);
 
         $reservacion = new Reservacion();
         $reservacion->id = Auth::id();
@@ -63,26 +61,31 @@ class reservacionControlador extends Controller
         return view('cliente.reservaciones.show', compact('reservacion'));
     }
 
-    public function edit(Reservacion $reservacion)
-    {
-        return view('cliente.reservaciones.edit', compact('reservacion'));
-    }
+    /**
+     * Show the form for editing the specified resource.
+     */
+public function edit(Reservacion $reservacion)
+{
+    return view('empleados.reservaciones.edit', compact('reservacion'));
+}
 
     public function update(Request $request, Reservacion $reservacion)
-    {
-        $request->validate([
-            'cantidad_personas' => 'required|integer|min:1',
-            'cantidad_mesas' => 'required|integer|min:1',
-            'fecha_reservacion' => 'required|date',
-            'ocasion' => 'nullable|string|max:255',
-        ]);
+{
+    // Validación de los campos que sí existen
+    $request->validate([
+        'cantidad_personas' => 'required|integer|min:1',
+        'cantidad_mesas' => 'required|integer|min:1',
+        'fecha_reservacion' => 'required|date',
+        'ocasion' => 'required|string|max:255',
+    ]);
 
-        $reservacion->update($request->only([
-            'cantidad_personas',
-            'cantidad_mesas',
-            'fecha_reservacion',
-            'ocasion',
-        ]));
+    // Actualizar solo los campos permitidos
+    $reservacion->update($request->only([
+        'cantidad_personas',
+        'cantidad_mesas',
+        'fecha_reservacion',
+        'ocasion'
+    ]));
 
         return redirect()->route('cliente.reservaciones.index')
                          ->with('success', 'Reservación actualizada correctamente');

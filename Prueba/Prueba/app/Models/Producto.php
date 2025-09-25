@@ -37,7 +37,8 @@ class Producto extends Model
 		'nombre',
 		'tipo_producto',
 		'stock',
-		'precio_unitario'
+		'precio_unitario',
+		'imagen'
 	];
 
 	public function detalle_venta()

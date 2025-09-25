@@ -38,8 +38,15 @@ class ProductoControlador extends Controller
             'nombre' => 'required|string|max:100',
             'tipo_producto' => 'required|string|max:50',
             'stock' => 'required|numeric|min:0',
-            'precio_unitario' => 'required|integer|min:0'
+            'precio_unitario' => 'required|numeric|min:0',
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
+
+        // Guardar imagen
+        if ($request->hasFile('imagen')) {
+            $path = $request->file('imagen')->store('productos', 'public');
+            $validated['imagen'] = $path;
+        }
 
         Producto::create($validated);
 
@@ -71,8 +78,21 @@ class ProductoControlador extends Controller
             'nombre' => 'required|string|max:100',
             'tipo_producto' => 'required|string|max:50',
             'stock' => 'required|numeric|min:0',
-            'precio_unitario' => 'required|integer|min:0'
+            'precio_unitario' => 'required|numeric|min:0',
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
+
+        // Subir nueva imagen si existe
+        if ($request->hasFile('imagen')) {
+            // Eliminar imagen anterior si existe
+            if ($producto->imagen && file_exists(storage_path('app/public/' . $producto->imagen))) {
+                unlink(storage_path('app/public/' . $producto->imagen));
+            }
+
+            // Guardar la nueva imagen
+            $path = $request->file('imagen')->store('productos', 'public');
+            $validated['imagen'] = $path;
+        }
 
         $producto->update($validated);
 

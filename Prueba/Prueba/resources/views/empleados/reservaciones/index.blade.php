@@ -1,12 +1,10 @@
-@extends('layouts.app')
-@section('title', 'Lista de tus reservas!')
+@extends('layouts.admin')
 
 @section('content')
-<div class="d-flex justify-content-between mb-3">
-    <h1 class="h4">Reservaciones</h1>
-    <a href="{{ route('reservaciones.create') }}" class="btn btn-primary">Nuevo</a>
-</div>
-<table class="table table-striped">
+<div class="container">
+    <h2>Lista de Reservaciones</h2>
+    <a href="{{ route('admin.reservaciones.create') }}" class="btn btn-primary">Nueva Reserva</a>
+<table class="table mt-3 table-striped">
     <thead>
         <tr>
             <th>ID del usuario</th>
@@ -22,16 +20,15 @@
     <tbody>
     @foreach ($reservaciones as $reservacion)
     <tr>
-        <td>{{ $reservacion->id_usuario }}</td>
-        <td>{{ $reservacion->usuario->nombre }} - {{ $reservacion->usuario->cedula }}</td>
+        <td>{{ $reservacion->user->id }} </td>
+        <td>{{ $reservacion->user->name }} - {{ $reservacion->user->numero_documento }}</td>
         <td>{{ $reservacion->cantidad_personas }}</td>
         <td>{{ $reservacion->cantidad_mesas }}</td>
         <td>{{ $reservacion->fecha_reservacion }}</td>
         <td>{{ $reservacion->ocasion }}</td>
         <td class="text-end">
-            <a href="{{ route('reservaciones.show',$reservacion)}}" class="btn btn-info">Ver</a>
-            <a href="{{ route('reservaciones.edit',$reservacion) }}" class="btn btn-warning">Editar</a>
-            <form action="{{ route('reservaciones.destroy',$reservacion) }}" method="post" class="d-inline">
+            <a href="{{ route('admin.reservaciones.edit',$reservacion) }}" class="btn btn-warning btn-sm">Editar</a>
+            <form action="{{ route('admin.reservaciones.destroy',$reservacion) }}" method="post" class="d-inline">
         @csrf @method('DELETE')
         <button class="btn btn-sm btn-danger" onclick="return confirm('Eliminar producto')">Eliminar</button>    
         </form>

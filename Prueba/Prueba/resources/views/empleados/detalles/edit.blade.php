@@ -13,7 +13,7 @@
         </div>
     @endif
 
-    <form action="{{ route('detalles.update', $detalle) }}" method="POST">
+    <form action="{{ route('admin.detalles.update', $detalle) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -43,6 +43,6 @@
         </div>
 
         <button type="submit">Actualizar</button>
-        <a href="{{ route('detalles.index') }}">Cancelar</a>
+        <a href="{{ route('admin.detalles.index') }}">Cancelar</a>
     </form>
 @endsection

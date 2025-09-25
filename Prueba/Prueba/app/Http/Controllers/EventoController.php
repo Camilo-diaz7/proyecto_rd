@@ -12,8 +12,7 @@ class EventoController extends Controller
     public function index()
     {
         $eventos = Evento::all();
-        return redirect()->route('admin.eventos.index')->with('success', 'Evento creado con éxito');
-
+        return view('empleados.eventos.index', compact('eventos'));
     }
   
 
@@ -24,10 +23,10 @@ class EventoController extends Controller
 }
     public function create()
     {
-        return view('eventos.create');
+        return view('empleados.eventos.create');
     }
        public function show (Evento $evento){
-        return view('eventos.show', compact('evento'));
+        return view('empleados.eventos.show', compact('evento'));
     }
 
     public function store(Request $request)
@@ -50,14 +49,14 @@ class EventoController extends Controller
 
         Evento::create($data);
 
-        return redirect()->route('eventos.index')->with('success', 'Evento creado con éxito');
+        return redirect()->route('admin.eventos.index')->with('success', 'Evento creado con éxito');
     }
 
 
     public function edit($id)
     {
         $evento = Evento::findOrFail($id);
-        return view('eventos.edit', compact('evento'));
+        return view('empleados.eventos.edit', compact('evento'));
     }
 
 
@@ -89,7 +88,7 @@ class EventoController extends Controller
 
     $evento->update($data);
 
-    return redirect()->route('eventos.index')->with('success', 'Evento actualizado correctamente');
+    return redirect()->route('admin.eventos.index')->with('success', 'Evento actualizado correctamente');
 }
 
 
@@ -98,7 +97,7 @@ class EventoController extends Controller
     public function destroy(Evento $evento)
     {
         $evento->delete();
-        return redirect()->route('eventos.index')->with('success', 'Evento eliminado correctamente.');
+        return redirect()->route('admin.eventos.index')->with('success', 'Evento eliminado correctamente.');
     }
 }
 

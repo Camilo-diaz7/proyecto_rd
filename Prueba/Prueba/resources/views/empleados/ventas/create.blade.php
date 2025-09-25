@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'crear tu reserva')
 
@@ -16,30 +16,35 @@
         </ul>
     </div>
 @endif
-<form action="{{ route('ventas.store') }}" method="POST">
+<form action="{{ route('admin.ventas.store') }}" method="POST">
     @csrf
     <div class="mb-3">
-    <label for="id_usuario" class="form-label">ID Usuario</label>
-    <input type="number" class="form-control" id="id_usuario" name="id_usuario" value="{{ old('id_usuario') }}" required>
-</div>
+        <label>Usuario</label>
+        <div class="form-control bg-light">
+            <strong>ID:</strong> {{ Auth::user()->id }} | 
+            <strong>Nombre:</strong> {{ Auth::user()->name }} {{ Auth::user()->apellido }} | 
+            <strong>Documento:</strong> {{ Auth::user()->numero_documento }}
+        </div>
+        <input type="hidden" name="id" value="{{ Auth::id() }}">
+    </div>
     <div class="mb-3">
-        <label for="total" class="form-label">Total</label>
-        <input type="number" class="form-control" id="total" name="total" value="{{ old('total') }}" required>
+        <label>Total</label>
+        <input type="number" step="0.01" class="form-control" name="total" value="{{ old('total') }}" required>
     </div>
 
     <div class="mb-3">
-    <label for="metodo_pago" class="form-label">Método de Pago</label>
-    <select class="form-select" name="metodo_pago" id="metodo_pago" required>
-        <option value="">-- Selecciona un método --</option>
-        <option value="efectivo">Efectivo</option>
-        <option value="tarjeta">Tarjeta</option>
-        <option value="transferencia">Transferencia</option>
-    </select>
-</div>
+        <label>Método de Pago</label>
+        <select class="form-control" name="metodo_pago" required>
+            <option value="">-- Selecciona un método --</option>
+            <option value="efectivo">Efectivo</option>
+            <option value="tarjeta">Tarjeta</option>
+            <option value="transferencia">Transferencia</option>
+        </select>
+    </div>
 
 
-    <button type="submit" class="btn btn-danger">Guardar</button>
-    <a href="{{ route('ventas.index') }}" class="btn btn-secondary" >Cancelar</a>
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a href="{{ route('admin.ventas.index') }}" class="btn btn-secondary" >Cancelar</a>
 
 </form>
 @endsection

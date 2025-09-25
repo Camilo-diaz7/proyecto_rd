@@ -23,6 +23,26 @@
         </div>
 
         <div class="mb-3">
+            <label>Tipo de Documento</label>
+            <select name="tipo_documento" class="form-control">
+                <option value="CC" {{ $empleado->tipo_documento == 'CC' ? 'selected' : '' }}>Cédula de Ciudadanía</option>
+                <option value="TI" {{ $empleado->tipo_documento == 'TI' ? 'selected' : '' }}>Tarjeta de Identidad</option>
+                <option value="CE" {{ $empleado->tipo_documento == 'CE' ? 'selected' : '' }}>Cédula de Extranjería</option>
+                <option value="PA" {{ $empleado->tipo_documento == 'PA' ? 'selected' : '' }}>Pasaporte</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Número de Documento</label>
+            <input type="text" name="numero_documento" class="form-control" value="{{ $empleado->numero_documento }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Teléfono</label>
+            <input type="text" name="telefono" class="form-control" value="{{ $empleado->telefono }}">
+        </div>
+
+        <div class="mb-3">
             <label>Rol</label>
             <select name="role" class="form-control">
                 <option value="empleado" {{ $empleado->role == 'empleado' ? 'selected' : '' }}>Empleado</option>

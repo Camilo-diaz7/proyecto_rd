@@ -136,14 +136,15 @@
         <i class="bi bi-calendar-event-fill"></i> Eventos
       </a>
       <a href="{{ route('admin.reservaciones.index') }}">
-        <i class="bi bi-gear-fill"></i> reservaciones
+        <i class="bi bi-gear-fill"></i> Reservaciones
       </a>
       <a href="{{route('admin.ventas.index')  }}">
-        <i class="bi bi-gear-fill">Ventas</i>
+        <i class="bi bi-gear-fill"></i> Ventas
       </a>
       <a href="{{route('admin.productos.index')  }}">
-        <i class="bi bi-gear-fill">Productos</i>
+        <i class="bi bi-gear-fill"></i> Productos
       </a>
+
  
     </nav>
 
