@@ -7,7 +7,7 @@ use App\Http\Controllers\EventoController;
 use App\Http\Controllers\BoletaController;
 use App\Http\Controllers\DetalleVentaControlador;
 use App\Http\Controllers\ProductoControlador;
-use App\Http\Controllers\reservacionControlador;
+use App\Http\Controllers\ReservacionController;
 use App\Http\Controllers\ventaControlador;
 
 /*
@@ -43,13 +43,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 */
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
-<<<<<<< Updated upstream
     Route::get('dashboard', function () {
         return redirect()->route('empleados.index');
-=======
-    Route::get('/dashboard', function () {
-        return redirect()->route('admin.empleados.index');
->>>>>>> Stashed changes
     })->name('dashboard');
 
     // CRUD de empleados (ahora sí bien conectado)
@@ -59,7 +54,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('ventas', ventaControlador::class);
     Route::resource('productos', ProductoControlador::class);
     Route::resource('eventos', EventoController::class);
-    Route::resource('reservaciones', reservacionControlador::class);
+    Route::resource('reservaciones', ReservacionController::class);
 });
 
 /*
@@ -73,7 +68,7 @@ Route::prefix('cliente')->name('cliente.')->middleware('auth')->group(function (
     })->name('dashboard');
 
     Route::resource('boletas', BoletaController::class);
-    Route::resource('reservaciones', reservacionControlador::class)
+    Route::resource('reservaciones', ReservacionController::class)
      ->parameters(['reservaciones' => 'reservacion']);
 });
 
@@ -88,10 +83,6 @@ Route::prefix('cliente')->name('cliente.')->middleware('auth')->group(function (
 |--------------------------------------------------------------------------
 */
 Route::prefix('empleado')->name('empleado.')->middleware('auth')->group(function () {
-<<<<<<< Updated upstream
-=======
-    Route::resource('empleado.empl', EmpleadoController::class);
->>>>>>> Stashed changes
 
     // Dashboard exclusivo del empleado
     Route::get('/empl', function () {
@@ -104,5 +95,5 @@ Route::prefix('empleado')->name('empleado.')->middleware('auth')->group(function
 
     // Solo lectura de ventas y reservaciones
     Route::resource('ventas', ventaControlador::class);
-    Route::resource('reservaciones', reservacionControlador::class)->only(['index']);
+    Route::resource('reservaciones', ReservacionController::class)->only(['index']);
 });

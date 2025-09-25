@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <h1>Lista de Empleados</h1>
-    <a href="{{ route('admin.empleados.create') }}" class="btn btn-primary">➕ Nuevo Empleado</a>
+    <h2>Lista de Empleados</h2>
+    <a href="{{ route('admin.empleados.create') }}" class="btn btn-primary">Nuevo Empleado</a>
 
     @if(session('success'))
         <div class="alert alert-success mt-2">{{ session('success') }}</div>
@@ -31,11 +31,11 @@
                 <td>{{ $empleado->numero_documento }}</td>
                 <td>{{ $empleado->role }}</td>
                 <td>
-                    <a href="{{ route('admin.empleados.show', $empleado) }}" class="btn btn-info btn-sm">👁 Ver</a>
-                    <a href="{{ route('admin.empleados.edit', $empleado) }}" class="btn btn-warning btn-sm">✏ Editar</a>
+                    <a href="{{ route('admin.empleados.show', $empleado) }}" class="btn btn-info btn-sm">Ver</a>
+                    <a href="{{ route('admin.empleados.edit', $empleado) }}" class="btn btn-warning btn-sm">Editar</a>
                     <form action="{{ route('admin.empleados.destroy', $empleado) }}" method="POST" style="display:inline;">
                         @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">🗑 Eliminar</button>
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
                 </td>
             </tr>

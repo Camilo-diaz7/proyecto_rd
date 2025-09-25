@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\venta;
+use App\Models\Venta;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ventaControlador extends Controller
 {
@@ -63,41 +64,38 @@ public function store(Request $request)
     /**
      * Display the specified resource.
      */
-    public function show(venta $venta)
+    public function show(Venta $venta)
     {
-        //
-        return view('ventas.show', compact('venta'));
+        return view('empleados.ventas.show', compact('venta'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(venta $venta)
+    public function edit(Venta $venta)
     {
-            return view('ventas.edit', compact('venta'));
-        //
+        return view('empleados.ventas.edit', compact('venta'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, venta $venta)
+    public function update(Request $request, Venta $venta)
     {
-           $validated = $request->validate([
-        'total' => 'required|numeric|min:0',
-        'metodo_pago' => 'required|in:efectivo,tarjeta,transferencia',
+        $validated = $request->validate([
+            'total' => 'required|numeric|min:0',
+            'metodo_pago' => 'required|in:efectivo,tarjeta,transferencia',
         ]);
 
-   $venta->update($validated);
-        return redirect()->route('ventas.index')->
-        with('success','registro actualizado de la venta');
+        $venta->update($validated);
+        return redirect()->route('admin.ventas.index')
+                        ->with('success', 'Registro actualizado de la venta');
     }
-        //
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(venta $venta)
+    public function destroy(Venta $venta)
     {
         $venta->delete();
         return redirect()->route('ventas.index')->with
@@ -107,5 +105,3 @@ public function store(Request $request)
     }
 
 }
-
-

@@ -28,9 +28,12 @@ class Reservacion extends Model
 	protected $table = 'reservacion';
 	protected $primaryKey = 'id_reservacion';
 	public $timestamps = false;
+	
+	// Forzar el nombre del parámetro de ruta
+	protected $routeKeyName = 'id_reservacion';
 
 	protected $casts = [
-		'id' => 'int',
+		'id_reservacion' => 'int',
 		'cantidad_personas' => 'int',
 		'cantidad_mesas' => 'int',
 		'fecha_reservacion' => 'datetime'
@@ -46,6 +49,16 @@ class Reservacion extends Model
 public function getRouteKeyName()
 {
     return 'id_reservacion';
+}
+
+public function resolveRouteBinding($value, $field = null)
+{
+    return $this->where($field ?? $this->getRouteKeyName(), $value)->first();
+}
+
+public function getRouteKey()
+{
+    return $this->getAttribute($this->getRouteKeyName());
 }
 	public function user()
     {

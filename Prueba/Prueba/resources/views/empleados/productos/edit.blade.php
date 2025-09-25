@@ -13,6 +13,7 @@
         </div>
     @endif
 
+    <form action="{{ route('admin.productos.update', $producto) }}" method="POST">
     <form action="{{ route('empleados.productos.update', $producto) }}" method="POST">
         @csrf
         @method('PUT')
@@ -38,6 +39,6 @@
         </div>
 
         <button type="submit">Actualizar</button>
-        <a href="{{ route('empleados.productos.index') }}">Cancelar</a>
+        <a href="{{ route('admin.productos.index') }}">Cancelar</a>
     </form>
 @endsection

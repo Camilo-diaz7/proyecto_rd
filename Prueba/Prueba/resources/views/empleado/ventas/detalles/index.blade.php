@@ -5,7 +5,7 @@
 @section('content')
     <h1>Detalles</h1>
 
-    <a href="{{ route('detalles.create') }}" class="btn btn-primary mb-3">Agregar detalle</a>
+    <a href="{{ route('admin.detalles.create') }}" class="btn btn-primary mb-3">Agregar detalle</a>
 
     @if($detalleVenta->isEmpty())
         <div class="alert alert-info">
@@ -35,8 +35,8 @@
                         <td>${{ number_format($detalle->precio_unitario, 3) }}</td>
 
                         <td>
-                            <a href="{{ route('detalles.edit', $detalle) }}" class="btn btn-warning btn-sm">Editar</a>
-                            <form action="{{ route('detalles.destroy', $detalle) }}" method="POST" class="d-inline">
+                            <a href="{{ route('admin.detalles.edit', $detalle) }}" class="btn btn-warning btn-sm">Editar</a>
+                            <form action="{{ route('admin.detalles.destroy', $detalle) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" onclick="return confirm('¿Eliminar este detalle?')" class="btn btn-danger btn-sm">Eliminar</button>

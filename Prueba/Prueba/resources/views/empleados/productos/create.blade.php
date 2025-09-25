@@ -1,11 +1,12 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h1>Registrar nuevo producto</h1>
+<div class="container">
+    <h1>Nuevo Producto</h1>
 
     @if ($errors->any())
-        <div style="color: red;">
-            <ul>
+        <div class="alert alert-danger">
+            <ul class="mb-0">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -13,30 +14,37 @@
         </div>
     @endif
 
-    <form action="{{ route('empleados.productos.store') }}" method="POST">
+    <form action="{{ route('admin.productos.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        <div>
-            <label for="nombre">Nombre:</label>
-            <input type="text" name="nombre" id="nombre" value="{{ old('nombre') }}" required>
+        <div class="mb-3">
+            <label>Nombre</label>
+            <input type="text" name="nombre" class="form-control" value="{{ old('nombre') }}" required>
         </div>
 
-        <div>
-            <label for="tipo_producto">Tipo de Producto:</label>
-            <textarea name="tipo_producto" id="tipo_producto">{{ old('tipo_producto') }}</textarea>
+        <div class="mb-3">
+            <label>Tipo de Producto</label>
+            <input type="text" name="tipo_producto" class="form-control" value="{{ old('tipo_producto') }}" required>
+
         </div>
 
-        <div>
-            <label for="precio_unitario">Precio Unitario:</label>
-            <input type="number" step="0.01" name="precio_unitario" id="precio_unitario" value="{{ old('precio_unitario') }}" required>
+        <div class="mb-3">
+            <label>Precio</label>
+            <input type="number" step="0.01" name="precio_unitario" class="form-control" value="{{ old('precio_unitario') }}" required>
         </div>
 
-        <div>
-            <label for="stock">Stock:</label>
-            <input type="number" name="stock" id="stock" value="{{ old('stock') }}" required>
+        <div class="mb-3">
+            <label>Stock</label>
+            <input type="number" name="stock" class="form-control" value="{{ old('stock') }}" required>
         </div>
 
-        <button type="submit">Guardar</button>
-        <a href="{{ route('empleados.productos.index') }}">Cancelar</a>
+        <div class="mb-3">
+            <label>Imagen</label>
+            <input type="file" name="imagen" class="form-control" accept="image/*">
+        </div>
+
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <a href="{{ route('admin.productos.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
+</div>
 @endsection

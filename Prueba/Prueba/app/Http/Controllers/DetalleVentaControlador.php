@@ -14,7 +14,7 @@ class DetalleVentaControlador extends Controller
     {
         $venta = Venta::findOrFail($ventaId);
         $detalles = DetalleVenta::where('id_venta', $ventaId)->get();
-        return view('detalles.porVenta', compact('venta', 'detalles'));
+        return view('empleados.detalles.porVenta', compact('venta', 'detalles'));
     }
 
     public function index(): View
@@ -41,14 +41,14 @@ class DetalleVentaControlador extends Controller
         $detalle = DetalleVenta::create($validated);
 
         return redirect()
-            ->route('detalles.porVenta', ['venta' => $detalle->id_venta])
+            ->route('admin.detalles.porVenta', ['venta' => $detalle->id_venta])
             ->with('success', 'Detalle de venta creado correctamente.');
     }
 
     public function show(string $id): View
     {
         $detalleVenta = DetalleVenta::findOrFail($id);
-        return view('detalles.show', compact('detalleVenta'));
+        return view('empleados.detalles.show', compact('detalleVenta'));
     }
 
     public function edit(DetalleVenta $detalle): View
@@ -69,7 +69,7 @@ class DetalleVentaControlador extends Controller
         $detalle->update($validated);
 
         return redirect()
-            ->route('detalles.porVenta', ['venta' => $detalle->id_venta])
+            ->route('admin.detalles.porVenta', ['venta' => $detalle->id_venta])
             ->with('success', 'Detalle de venta actualizado exitosamente.');
     }
 
@@ -79,7 +79,7 @@ class DetalleVentaControlador extends Controller
         $detalle->delete();
 
         return redirect()
-            ->route('detalles.porVenta', ['venta' => $ventaId])
+            ->route('admin.detalles.porVenta', ['venta' => $ventaId])
             ->with('success', 'Detalle de venta eliminado correctamente.');
     }
 }

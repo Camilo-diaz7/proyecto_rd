@@ -15,9 +15,9 @@ class ProductoControlador extends Controller
         $productos = Producto::all();
 
         if (auth()->user()->hasRole('admin')) {
-            return view('productos.index', compact('productos'));
+            return view('empleados.productos.index', compact('productos'));
         } else {
-            return view('productos.index', compact('productos'));
+            return view('empleados.productos.index', compact('productos'));
         }
     }
 
@@ -26,7 +26,7 @@ class ProductoControlador extends Controller
      */
     public function create()
     {
-        return view('productos.create');
+        return view('empleados.productos.create');
     }
 
     /**
@@ -38,12 +38,19 @@ class ProductoControlador extends Controller
             'nombre' => 'required|string|max:100',
             'tipo_producto' => 'required|string|max:50',
             'stock' => 'required|numeric|min:0',
-            'precio_unitario' => 'required|integer|min:0'
+            'precio_unitario' => 'required|numeric|min:0',
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
+
+        // Guardar imagen
+        if ($request->hasFile('imagen')) {
+            $path = $request->file('imagen')->store('productos', 'public');
+            $validated['imagen'] = $path;
+        }
 
         Producto::create($validated);
 
-        return redirect()->route('productos.index')->with('success', 'Producto registrado exitosamente.');
+        return redirect()->route('empleados.productos.index')->with('success', 'Producto registrado exitosamente.');
     }
 
     /**
@@ -51,7 +58,7 @@ class ProductoControlador extends Controller
      */
     public function show(Producto $producto)
     {
-        return view('productos.show', compact('producto'));
+        return view('empleados.productos.show', compact('producto'));
     }
 
     /**
@@ -59,7 +66,7 @@ class ProductoControlador extends Controller
      */
     public function edit(Producto $producto)
     {
-        return view('productos.edit', compact('producto'));
+        return view('empleados.productos.edit', compact('producto'));
     }
 
     /**
@@ -71,12 +78,25 @@ class ProductoControlador extends Controller
             'nombre' => 'required|string|max:100',
             'tipo_producto' => 'required|string|max:50',
             'stock' => 'required|numeric|min:0',
-            'precio_unitario' => 'required|integer|min:0'
+            'precio_unitario' => 'required|numeric|min:0',
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
+
+        // Subir nueva imagen si existe
+        if ($request->hasFile('imagen')) {
+            // Eliminar imagen anterior si existe
+            if ($producto->imagen && file_exists(storage_path('app/public/' . $producto->imagen))) {
+                unlink(storage_path('app/public/' . $producto->imagen));
+            }
+
+            // Guardar la nueva imagen
+            $path = $request->file('imagen')->store('productos', 'public');
+            $validated['imagen'] = $path;
+        }
 
         $producto->update($validated);
 
-        return redirect()->route('productos.index')->with('success', 'Producto actualizado exitosamente.');
+        return redirect()->route('empleados.productos.index')->with('success', 'Producto actualizado exitosamente.');
     }
 
     /**
@@ -86,6 +106,6 @@ class ProductoControlador extends Controller
     {
         $producto->delete();
 
-        return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
+        return redirect()->route('empleados.productos.index')->with('success', 'Producto eliminado exitosamente.');
     }
 }

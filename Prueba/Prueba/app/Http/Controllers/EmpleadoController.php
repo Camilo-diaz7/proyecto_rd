@@ -54,7 +54,7 @@ class EmpleadoController extends Controller
             'telefono'         => $request->telefono,
         ]);
 
-        return redirect()->route('empleados.index')
+        return redirect()->route('admin.empleados.index')
                          ->with('success', 'Empleado creado correctamente ✅');
     }
 
@@ -83,6 +83,7 @@ class EmpleadoController extends Controller
             'name'             => 'required|string|max:255',
             'apellido'         => 'required|string|max:255',
             'email'            => 'required|email|unique:users,email,' . $empleado->id,
+            'tipo_documento'   => 'nullable|string',
             'numero_documento' => 'required|string|unique:users,numero_documento,' . $empleado->id,
             'telefono'         => 'nullable|string',
         ]);

@@ -9,7 +9,7 @@ use Illuminate\View\View;
 use function PHPUnit\Framework\returnArgument;
 use Illuminate\Support\Facades\Auth;
 
-class reservacionControlador extends Controller
+class ReservacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -52,7 +52,6 @@ class reservacionControlador extends Controller
     public function store(Request $request)
 {
     $request->validate([
-        'id' => 'required',
         'cantidad_personas' => 'required|integer',
         'cantidad_mesas' => 'required|integer',
         'fecha_reservacion' => 'required|date',
@@ -80,7 +79,7 @@ class reservacionControlador extends Controller
      */
     public function show(Reservacion $reservacion)
     {
-        return view('cliente.reservaciones.show',compact('reservacion'));
+        return view('reservaciones.show',compact('reservacion'));
         //mostrar los detalles de un producto
 
     }
@@ -100,7 +99,6 @@ public function edit(Reservacion $reservacion)
 {
     // Validación de los campos que sí existen
     $request->validate([
-        'id' => 'required|exists:users,id',
         'cantidad_personas' => 'required|integer|min:1',
         'cantidad_mesas' => 'required|integer|min:1',
         'fecha_reservacion' => 'required|date',
@@ -109,7 +107,6 @@ public function edit(Reservacion $reservacion)
 
     // Actualizar solo los campos permitidos
     $reservacion->update($request->only([
-        'id',
         'cantidad_personas',
         'cantidad_mesas',
         'fecha_reservacion',
