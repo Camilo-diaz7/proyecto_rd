@@ -15,16 +15,11 @@ class ReservacionController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-  {
-    $usuario = Auth::user();
 
-    if ($usuario->role === 'cliente') {
-        // Solo las reservaciones de ese cliente
-        $reservaciones = Reservacion::where('id', auth::id())->get();
-        return view('cliente.reservaciones.index', compact('reservaciones'));
-    }
 
-    if ($usuario->role === 'empleado') {
+    {
+        $usuario = Auth::user();
+            if ($usuario->role === 'empleado') {
         // Todas las reservaciones
         $reservaciones = Reservacion::all();
         return view('empleado.reservaciones.index', compact('reservaciones'));
@@ -33,23 +28,17 @@ class ReservacionController extends Controller
         $reservaciones= Reservacion::all();
         return view('empleados.reservaciones.index',compact('reservaciones'));
     }
-
-    if ($usuario->role === "admin") {
-        $reservaciones = Reservacion::all();
-        return view('admin.reservaciones.index', compact('reservaciones'));
     }
 
-    // Si no entra a ningún if
-    abort(403, 'Acceso denegado');
-}
+
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //formulario donde estan los campos a registrar
-        return view('cliente.reservaciones.create');
+        return view('empleados.reservaciones.create');
     }
 
     /**
