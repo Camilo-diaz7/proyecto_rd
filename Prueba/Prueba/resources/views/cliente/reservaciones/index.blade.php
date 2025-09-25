@@ -1,7 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+<<<<<<< Updated upstream
+=======
   
+<div class="d-flex justify-content-between mb-3">
+    <h1 class="h4">Reservaciones</h1>
+    <a href="{{ route('cliente.reservaciones.create') }}" class="btn btn-danger">Nuevo</a>
+</div>
+>>>>>>> Stashed changes
+
 
     <h2>Lista de tus Reservaciones</h2>
     <a href="{{ route('cliente.reservaciones.create') }}" class="btn btn-danger mb-3">Nueva reserva</a>
@@ -46,7 +54,7 @@
         <a href="{{ route('cliente.reservaciones.edit', $reservacion->id_reservacion) }}" class="btn btn-dark">Editar</a>
         <form action="{{ route('cliente.reservaciones.destroy',$reservacion) }}" method="post" class="d-inline">
             @csrf @method('DELETE')
-            <button class="btn btn-danger" onclick="return confirm('Eliminar reservacion?')">Eliminar</button>    
+            <button class="btn btn-danger" onclick="return confirm('Eliminar reservacion?')">Eliminar</button>
         </form>
     </td>
 </tr>

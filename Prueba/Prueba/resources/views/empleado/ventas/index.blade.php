@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.empleados')
 @section('title', 'Lista de tus reservas!')
 
 @section('content')
@@ -16,7 +16,7 @@
             <th>ID de Usuario</th>
             <th>Nombre y Cedula</th>
             <th>Acciones</th>
-            
+
     </tr>
     </thead>
     <tbody>
@@ -34,11 +34,11 @@
             <a href="{{ route('empleado.ventas.edit',$venta) }}" class="btn btn-warning">Editar</a>
             <form action="{{ route('empleado.ventas.destroy',$venta) }}" method="post" class="d-inline">
         @csrf @method('DELETE')
-        <button class="btn btn-sm btn-danger" onclick="return confirm('Eliminar venta')">Eliminar</button>    
+        <button class="btn btn-sm btn-danger" onclick="return confirm('Eliminar venta')">Eliminar</button>
         </form>
         </td>
     </tr>
-    
+
     @endforeach
     </tbody>
 @endsection

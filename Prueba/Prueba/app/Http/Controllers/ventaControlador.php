@@ -13,10 +13,21 @@ class ventaControlador extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $ventas = Venta::with('usuario')->get();
-        return view('empleados.ventas.index', compact('ventas'));
+     {
+    $usuario = Auth::user();
+
+    if ($usuario->role === 'empleado') {
+        // Todas las reservaciones
+        $venta = venta::all();
+        return view('empleado.ventas.index', compact('venta'));
     }
+    if($usuario->role=='admin'){
+        $venta= Venta::all();
+        return view('admin.ventas.index',compact('venta'));
+    }
+
+    abort(403, 'Acceso denegado');
+}
 
     /**
      * Show the form for creating a new resource.
@@ -24,27 +35,30 @@ class ventaControlador extends Controller
     public function create()
     {
         //formulario donde estan los campos a registrar
-        return view('empleados.ventas.create');
+        return view('empleado.ventas.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'total' => 'required|numeric|min:0',
-            'metodo_pago' => 'required|in:efectivo,tarjeta,transferencia',
-        ]);
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'total'        => 'required|numeric|min:0',
+        'metodo_pago'  => 'required|in:efectivo,tarjeta,transferencia',
+    ]);
 
-        // Asignar automáticamente el usuario autenticado y la fecha actual
-        $validated['id'] = Auth::id();
-        $validated['fecha'] = now();
+    // Asignar automáticamente el usuario logueado
+   $validated['id_usuario'] = $request->user()->id;
 
-        Venta::create($validated);
-        return redirect()->route('admin.ventas.index')
-                        ->with('success', 'Registro exitoso de la venta');
-    }
+
+    Venta::create($validated);
+
+    return redirect()->route('empleado.ventas.index')
+        ->with('success','Registro exitoso de la venta');
+}
+
+
 
 
     /**
@@ -84,7 +98,10 @@ class ventaControlador extends Controller
     public function destroy(Venta $venta)
     {
         $venta->delete();
-        return redirect()->route('admin.ventas.index')
-                        ->with('success', 'Eliminado exitosamente');
+        return redirect()->route('ventas.index')->with
+        ('success','eliminado exitosamente');
+
+        //
     }
+
 }
