@@ -10,13 +10,11 @@ use Illuminate\Support\Facades\Auth;
 class ReservacionController extends Controller
 {
     public function index()
-    {
-        $reservaciones = Reservacion::where('id', Auth::id())->get();
-        return view('empleados.reservaciones.index',compact('reservaciones'));
-        //lista del producto
-    }
 
-    if ($usuario->role === 'empleado') {
+
+    {
+        $usuario = Auth::user();
+            if ($usuario->role === 'empleado') {
         // Todas las reservaciones
         $reservaciones = Reservacion::all();
         return view('empleado.reservaciones.index', compact('reservaciones'));
@@ -25,13 +23,13 @@ class ReservacionController extends Controller
         $reservaciones=Reservacion::all();
         return view('admin.reservaciones.index',compact('reservaciones'));
     }
+    }
 
-    abort(403, 'Acceso denegado');
-}
+
+
 
     public function create()
     {
-        //formulario donde estan los campos a registrar
         return view('empleados.reservaciones.create');
     }
 
@@ -98,3 +96,4 @@ public function edit(Reservacion $reservacion)
         return redirect()->route('cliente.reservaciones.index')
                          ->with('success', 'Reservación eliminada correctamente');
     }
+}
