@@ -141,6 +141,7 @@
           </span>
           <li><a href="{{route('cliente.reservaciones.index')}}">Reservaciones</a></li>
           <li><a href="{{route('cliente.boletas.index')}}">Boletas</a></li>
+          <li><a href="{{ route('cliente.evento.index') }}">Eventos</a></li>
           <li>
             <a href="{{ route('logout') }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión </a>
           </li>
