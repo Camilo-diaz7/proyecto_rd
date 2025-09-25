@@ -22,7 +22,7 @@ class Boleta extends Model
 
     public function user()
     {
-       return $this->belongsTo(User::class, 'id_usuario', 'id'); 
+       return $this->belongsTo(User::class, 'id', 'id'); 
     }
 }
 	

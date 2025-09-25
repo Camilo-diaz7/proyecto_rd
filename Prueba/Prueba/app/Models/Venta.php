@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $fecha
  * @property float $total
  * @property string $metodo_pago
- * @property int|null $id_usuario
+ * @property int|null $id
  * 
  * @property User|null $usuario
  * @property Collection|DetalleVenta[] $detalle_venta
@@ -33,14 +33,14 @@ class Venta extends Model
     protected $casts = [
         'fecha' => 'datetime',
         'total' => 'float',
-        'id' => 'int'   // este es el campo en venta que apunta al user
+        'id' => 'int'   // ID del usuario que realizó la venta
     ];
 
     protected $fillable = [
         'fecha',
         'total',
         'metodo_pago',
-        'id'  // importante mantenerlo igual al campo de la tabla
+        'id'  // ID del usuario que realizó la venta
     ];
 
     public function usuario()

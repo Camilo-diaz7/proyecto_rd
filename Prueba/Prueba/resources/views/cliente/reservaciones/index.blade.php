@@ -44,7 +44,7 @@
 
     {{-- Acciones --}}
     <td>
-        <a href="{{ route('cliente.reservaciones.edit', $reservacion->id_reservacion) }}" class="btn btn-dark">Editar</a>
+        <a href="{{ route('cliente.reservaciones.edit', $reservacion) }}" class="btn btn-dark">Editar</a>
         <form action="{{ route('cliente.reservaciones.destroy',$reservacion) }}" method="post" class="d-inline">
             @csrf @method('DELETE')
             <button class="btn btn-danger" onclick="return confirm('Eliminar reservacion?')">Eliminar</button>

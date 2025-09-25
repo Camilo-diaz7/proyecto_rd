@@ -17,13 +17,13 @@ class ventaControlador extends Controller
     $usuario = Auth::user();
 
     if ($usuario->role === 'empleado') {
-        // Todas las reservaciones
-        $venta = venta::all();
-        return view('empleado.ventas.index', compact('venta'));
+        // Todas las ventas
+        $ventas = Venta::with('usuario')->get();
+        return view('empleado.ventas.index', compact('ventas'));
     }
     if($usuario->role=='admin'){
-        $venta= Venta::all();
-        return view('admin.ventas.index',compact('venta'));
+        $ventas = Venta::with('usuario')->get();
+        return view('empleados.ventas.index',compact('ventas'));
     }
 
     abort(403, 'Acceso denegado');
@@ -35,7 +35,7 @@ class ventaControlador extends Controller
     public function create()
     {
         //formulario donde estan los campos a registrar
-        return view('empleado.ventas.create');
+        return view('empleados.ventas.create');
     }
 
     /**
@@ -49,12 +49,12 @@ public function store(Request $request)
     ]);
 
     // Asignar automáticamente el usuario logueado
-   $validated['id_usuario'] = $request->user()->id;
+   $validated['id'] = $request->user()->id;
 
 
     Venta::create($validated);
 
-    return redirect()->route('empleado.ventas.index')
+    return redirect()->route('empleados.ventas.index')
         ->with('success','Registro exitoso de la venta');
 }
 
@@ -98,10 +98,13 @@ public function store(Request $request)
     public function destroy(Venta $venta)
     {
         $venta->delete();
-        return redirect()->route('ventas.index')->with
-        ('success','eliminado exitosamente');
-
-        //
+        
+        $usuario = Auth::user();
+        if ($usuario->role === 'admin') {
+            return redirect()->route('admin.ventas.index')->with('success', 'Venta eliminada exitosamente');
+        } else {
+            return redirect()->route('empleado.ventas.index')->with('success', 'Venta eliminada exitosamente');
+        }
     }
 
 }

@@ -10,9 +10,8 @@
         <!-- Ya no es necesario enviar el ID del usuario -->
 
         <div class="mb-3">
-            <label for="id" class="form-label">ID Usuario</label>
+            <label for="id" class="form-label">Usuario</label>
             <input type="text" class="form-control" value="{{ Auth::user()->name }}" disabled>
-            <input type="hidden" name="id" value="{{ Auth::id() }}">
         </div>
 
         <!-- Selección de Evento -->

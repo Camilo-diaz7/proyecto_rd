@@ -62,7 +62,7 @@ class EventoController extends Controller
 
    public function update(Request $request, Evento $evento)
 {
-    $request->validate([
+    $data = $request->validate([
         'nombre_evento' => 'required|string|max:100',
         'capacidad_maxima' => 'required|integer',
         'descripcion' => 'nullable|string',
@@ -71,8 +71,6 @@ class EventoController extends Controller
         'precio_boleta' => 'required|numeric',
         'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
-
-    $data = $request->all();
 
     // Subir nueva imagen si existe
     if ($request->hasFile('imagen')) {
@@ -84,6 +82,9 @@ class EventoController extends Controller
         // Guardar la nueva imagen
         $path = $request->file('imagen')->store('eventos', 'public');
         $data['imagen'] = $path;
+    } else {
+        // Si no hay nueva imagen, quitar del array para no sobrescribir
+        unset($data['imagen']);
     }
 
     $evento->update($data);

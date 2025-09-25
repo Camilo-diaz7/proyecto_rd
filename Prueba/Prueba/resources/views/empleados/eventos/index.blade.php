@@ -18,6 +18,7 @@
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Precio</th>
+                <th>Imagen</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -30,6 +31,17 @@
                 <td>{{ $evento->fecha }}</td>
                 <td>{{ $evento->hora_inicio }}</td>
                 <td>$ {{ number_format($evento->precio_boleta, 3) }}</td>
+                <td>
+                                    @if($evento->imagen)
+             <img src="{{ asset('storage/' . $evento->imagen) }}" 
+             alt="Imagen de {{ $evento->nombre }}" 
+             width="80" height="80"
+             style="object-fit: cover; border-radius: 5px;">
+             @else
+             <span class="text-muted">Sin imagen</span>
+              @endif
+                </td>
+
 
                 <td>
                     <a href="{{ route('admin.eventos.edit', $evento) }}" class="btn btn-warning btn-sm">Editar</a>

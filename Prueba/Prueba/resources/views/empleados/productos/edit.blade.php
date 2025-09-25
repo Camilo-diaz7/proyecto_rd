@@ -20,22 +20,22 @@
 
         <div>
             <label for="nombre">Nombre:</label>
-            <input type="text" name="nombre" id="nombre" value="{{ old('nombre', $producto->nombre) }}" required>
+            <input type="text" name="nombre" id="nombre" class="form-control" value="{{ old('nombre', $producto->nombre) }}" required>
         </div>
 
         <div>
             <label for="tipo_producto">Descripción:</label>
-            <textarea name="tipo_producto" id="tipo_producto">{{ old('tipo_producto', $producto->tipo_producto) }}</textarea>
+            <textarea name="tipo_producto" id="tipo_producto" class="form-control" >{{ old('tipo_producto', $producto->tipo_producto) }}</textarea>
         </div>
 
         <div>
             <label for="precio_unitario">Precio:</label>
-            <input type="number" step="0.01" name="precio_unitario" id="precio_unitario" value="{{ old('precio_unitario', $producto->precio_unitario) }}" required>
+            <input type="number" step="0.01" name="precio_unitario" class="form-control"  id="precio_unitario" value="{{ old('precio_unitario', $producto->precio_unitario) }}" required>
         </div>
 
         <div>
             <label for="stock">Stock:</label>
-            <input type="number" name="stock" id="stock" value="{{ old('stock', $producto->stock) }}" required>
+            <input type="number" name="stock" class="form-control" id="stock" value="{{ old('stock', $producto->stock) }}" required>
         </div>
 
         <button type="submit">Actualizar</button>

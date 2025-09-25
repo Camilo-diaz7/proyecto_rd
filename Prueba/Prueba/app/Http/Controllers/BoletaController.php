@@ -12,7 +12,7 @@ class BoletaController extends Controller
 {
     public function index()
     {
-        $boletas = Boleta::with('evento','user')->get();
+        $boletas = Boleta::with('evento','user')->where('id', Auth::id())->get();
         return view('cliente.boletas.index', compact('boletas'));
     }
 
@@ -31,13 +31,12 @@ class BoletaController extends Controller
 {
     $request->validate([
         'id_evento'        => 'required|exists:evento,id_evento',
-        'id'               => 'required|exists:users,id',
         'cantidad_boletos' => 'required|integer|min:1',
     ]);
 
     Boleta::create([
         'id_evento'        => $request->id_evento,
-        'id'               => $request->id, // usuario autenticado
+        'id'               => Auth::id(), // usar siempre el usuario autenticado
         'cantidad_boletos' => $request->cantidad_boletos,
         'precio_boleta'    => $request->precio_boleta, // opcional
     ]);
@@ -47,6 +46,11 @@ class BoletaController extends Controller
 }
     public function edit(Boleta $boleta)
     {
+        // Verificar que la boleta pertenezca al usuario autenticado
+        if ($boleta->id !== Auth::id()) {
+            abort(403, 'No tienes permisos para editar esta boleta.');
+        }
+        
         $usuarios = User::all();
         $eventos = Evento::all();
         return view('cliente.boletas.edit', compact('boleta','usuarios','eventos'));
@@ -54,6 +58,11 @@ class BoletaController extends Controller
 
     public function update(Request $request, Boleta $boleta)
     {
+        // Verificar que la boleta pertenezca al usuario autenticado
+        if ($boleta->id !== Auth::id()) {
+            abort(403, 'No tienes permisos para actualizar esta boleta.');
+        }
+        
         $request->validate([
             'id_evento'        => 'required|exists:evento,id_evento',
             'cantidad_boletos' => 'required|integer|min:1'
@@ -69,6 +78,11 @@ class BoletaController extends Controller
 
     public function destroy(Boleta $boleta)
     {
+        // Verificar que la boleta pertenezca al usuario autenticado
+        if ($boleta->id !== Auth::id()) {
+            abort(403, 'No tienes permisos para eliminar esta boleta.');
+        }
+        
         $boleta->delete();
 
         return redirect()->route('cliente.boletas.index')->with('success','Boleta eliminada correctamente.');

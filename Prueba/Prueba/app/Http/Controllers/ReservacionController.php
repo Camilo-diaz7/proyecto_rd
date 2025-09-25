@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservacionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $usuario = Auth::user();
 
@@ -18,13 +18,25 @@ class ReservacionController extends Controller
         }
 
         if ($usuario->role === 'empleado') {
-            $reservaciones = Reservacion::all();
+            $reservaciones = Reservacion::with('user')->get();
             return view('empleado.reservaciones.index', compact('reservaciones'));
         }
 
         if ($usuario->role === 'admin') {
-            $reservaciones = Reservacion::all();
-            return view('empleados.reservaciones.index', compact('reservaciones'));
+            // Búsqueda por número de documento
+            $search = $request->get('search');
+            
+            $reservaciones = Reservacion::with('user')
+                ->when($search, function ($query, $search) {
+                    return $query->whereHas('user', function ($userQuery) use ($search) {
+                        $userQuery->where('numero_documento', 'like', '%' . $search . '%')
+                                 ->orWhere('name', 'like', '%' . $search . '%');
+                    });
+                })
+                ->orderBy('fecha_reservacion', 'desc')
+                ->get();
+                
+            return view('empleados.reservaciones.index', compact('reservaciones', 'search'));
         }
 
         abort(403, 'Acceso denegado');
@@ -56,12 +68,12 @@ class ReservacionController extends Controller
                          ->with('success', 'Reservación creada correctamente');
     }
 
-    public function edit(Reservacion $reservacion)
+    public function edit(Reservacion $reservacione)
     {
-        return view('cliente.reservaciones.edit', compact('reservacion'));
+        return view('cliente.reservaciones.edit', compact('reservacione'));
     }
 
-    public function update(Request $request, Reservacion $reservacion)
+    public function update(Request $request, Reservacion $reservacione)
     {
         $request->validate([
             'cantidad_personas' => 'required|integer|min:1',
@@ -70,7 +82,7 @@ class ReservacionController extends Controller
             'ocasion' => 'nullable|string|max:255',
         ]);
 
-        $reservacion->update($request->only([
+        $reservacione->update($request->only([
             'cantidad_personas',
             'cantidad_mesas',
             'fecha_reservacion',
@@ -81,9 +93,9 @@ class ReservacionController extends Controller
                          ->with('success', 'Reservación actualizada correctamente');
     }
 
-    public function destroy(Reservacion $reservacion)
+    public function destroy(Reservacion $reservacione)
     {
-        $reservacion->delete();
+        $reservacione->delete();
         return redirect()->route('cliente.reservaciones.index')
                          ->with('success', 'Reservación eliminada correctamente');
     }

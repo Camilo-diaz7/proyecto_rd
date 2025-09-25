@@ -15,6 +15,9 @@ class LoginController extends Controller
      */
 protected function authenticated(Request $request, $user)
 {
+    // Debug temporal - mostrar el rol del usuario
+    \Log::info('Usuario logueado:', ['id' => $user->id, 'email' => $user->email, 'role' => $user->role]);
+    
     if ($user->role === 'admin') {
         return redirect()->route('admin.empleados.index'); // ✅ admin → lista de empleados
     }
@@ -26,6 +29,10 @@ protected function authenticated(Request $request, $user)
     if ($user->role === 'cliente') {
         return redirect()->route('cliente.dashboard'); // cliente → dashboard cliente
     }
+    
+    // Si no coincide con ningún rol, ir al dashboard por defecto
+    \Log::warning('Rol no reconocido:', ['role' => $user->role]);
+    return redirect()->route('cliente.dashboard');
 }
 
 

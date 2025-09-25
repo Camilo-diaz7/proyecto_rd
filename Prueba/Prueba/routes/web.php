@@ -44,7 +44,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::get('dashboard', function () {
-        return redirect()->route('empleados.index');
+        return redirect()->route('admin.empleados.index');
     })->name('dashboard');
 
     // CRUD de empleados (ahora sí bien conectado)
@@ -55,6 +55,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('productos', ProductoControlador::class);
     Route::resource('eventos', EventoController::class);
     Route::resource('reservaciones', ReservacionController::class);
+    
+    // Rutas para detalles de venta
+    Route::resource('detalles', DetalleVentaControlador::class);
+    Route::get('detalles/venta/{venta}', [DetalleVentaControlador::class, 'porVenta'])->name('detalles.porVenta');
 });
 
 /*
@@ -68,7 +72,7 @@ Route::prefix('cliente')->name('cliente.')->middleware('auth')->group(function (
     })->name('dashboard');
 
     Route::resource('boletas', BoletaController::class);
-    Route::resource('reservacion', ReservacionController::class)->parameters(['reservacion' => 'reservacion']);
+    Route::resource('reservaciones', ReservacionController::class);
 });
 
 /*
@@ -95,4 +99,6 @@ Route::prefix('empleado')->name('empleado.')->middleware('auth')->group(function
     // Solo lectura de ventas y reservaciones
     Route::resource('ventas', ventaControlador::class);
     Route::resource('reservaciones', ReservacionController::class)->only(['index']);
+    Route::get('detalles/venta/{venta}', [DetalleVentaControlador::class, 'porVenta'])->name('detalles.porVenta');
+
 });

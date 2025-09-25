@@ -16,8 +16,8 @@
                 <th>Nombre</th>
                 <th>Tipo</th>
                 <th>Stock</th>
-                <th>Precio</th>
                 <th>Imagen</th>
+                <th>Precio</th>
                 <th>Acciones</th>
             </tr>
         </thead>

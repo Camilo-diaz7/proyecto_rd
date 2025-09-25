@@ -27,7 +27,7 @@
                 <td>{{ $boleta->id_boleta }}</td>
 
                 {{-- Usuario --}}
-                <td>{{ Auth::user()->name ?? 'Usuario no asignado' }}</td>
+                <td>{{ $boleta->user?->name ?? Auth::user()->name }}</td>
 
                 {{-- Evento --}}
                 <td>

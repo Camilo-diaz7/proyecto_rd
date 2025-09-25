@@ -37,7 +37,7 @@ class Reservacion extends Model
 		'cantidad_personas' => 'int',
 		'cantidad_mesas' => 'int',
 		'fecha_reservacion' => 'datetime',
-        'ocasion'=>'varchar'
+        'ocasion' => 'string'
 	];
 
 	protected $fillable = [

@@ -18,7 +18,7 @@
         </div>
 
         <div class="mb-3">
-        <label for="tipo_documento" class="form-label">Método de Pago</label>
+        <label for="tipo_documento" class="form-label">Tipo de Documento</label>
         <select class="form-select" name="tipo_documento" id="tipo_documento" required>
             <option value="">-- Selecciona un tipo de documento --</option>
             <option value="CC">CC</option>

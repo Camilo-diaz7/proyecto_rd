@@ -16,7 +16,7 @@
                             Fecha: {{ $evento->fecha }} <br>
                             Hora: {{ $evento->hora_inicio }}
                         </p>
-                        <a href="#" class="btn btn-primary">Ver más</a>
+                        <a href="/login" class="btn btn-danger">Compra tu boleta</a>
                     </div>
                 </div>
             </div>
