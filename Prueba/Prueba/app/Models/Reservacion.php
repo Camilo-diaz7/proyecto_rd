@@ -11,14 +11,14 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Reservacion
- * 
+ *
  * @property int $id_reservacion
  * @property int|null $id_usuario
  * @property int $cantidad_personas
  * @property int $cantidad_mesas
  * @property Carbon $fecha_reservacion
  * @property string|null $ocasion
- * 
+ *
  * @property User|null $usuario
  *
  * @package App\Models
@@ -28,7 +28,7 @@ class Reservacion extends Model
 	protected $table = 'reservacion';
 	protected $primaryKey = 'id_reservacion';
 	public $timestamps = false;
-	
+
 	// Forzar el nombre del parámetro de ruta
 	protected $routeKeyName = 'id_reservacion';
 
@@ -36,7 +36,8 @@ class Reservacion extends Model
 		'id_reservacion' => 'int',
 		'cantidad_personas' => 'int',
 		'cantidad_mesas' => 'int',
-		'fecha_reservacion' => 'datetime'
+		'fecha_reservacion' => 'datetime',
+        'ocasion'=>'varchar'
 	];
 
 	protected $fillable = [
@@ -46,6 +47,7 @@ class Reservacion extends Model
 		'fecha_reservacion',
 		'ocasion'
 	];
+
 public function getRouteKeyName()
 {
     return 'id_reservacion';

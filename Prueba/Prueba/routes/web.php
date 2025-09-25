@@ -43,13 +43,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 */
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
-<<<<<<< Updated upstream
     Route::get('dashboard', function () {
         return redirect()->route('empleados.index');
-=======
-    Route::get('/dashboard', function () {
-        return redirect()->route('admin.empleados.index');
->>>>>>> Stashed changes
     })->name('dashboard');
 
     // CRUD de empleados (ahora sí bien conectado)
@@ -88,10 +83,6 @@ Route::prefix('cliente')->name('cliente.')->middleware('auth')->group(function (
 |--------------------------------------------------------------------------
 */
 Route::prefix('empleado')->name('empleado.')->middleware('auth')->group(function () {
-<<<<<<< Updated upstream
-=======
-    Route::resource('empleado.empl', EmpleadoController::class);
->>>>>>> Stashed changes
 
     // Dashboard exclusivo del empleado
     Route::get('/empl', function () {

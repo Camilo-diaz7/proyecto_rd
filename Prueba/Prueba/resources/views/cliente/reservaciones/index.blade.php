@@ -1,14 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<<<<<<< Updated upstream
-=======
-  
-<div class="d-flex justify-content-between mb-3">
-    <h1 class="h4">Reservaciones</h1>
-    <a href="{{ route('cliente.reservaciones.create') }}" class="btn btn-danger">Nuevo</a>
-</div>
->>>>>>> Stashed changes
 
 
     <h2>Lista de tus Reservaciones</h2>
@@ -38,6 +30,7 @@
     <td>{{ Auth::user()->name ?? 'Usuario no asignado' }}</td>
 
     {{-- Cantidad personas --}}
+
     <td>{{ $reservacion->cantidad_personas }}</td>
 
     {{-- Cantidad mesas --}}

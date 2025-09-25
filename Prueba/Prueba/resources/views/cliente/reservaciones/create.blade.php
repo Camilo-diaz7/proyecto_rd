@@ -17,7 +17,7 @@
         <input type="text" class="form-control" value="{{ Auth::user()->name }}" disabled>
         <input type="hidden" name="id" value="{{ Auth::id() }}">
     </div>
-    
+
     <div class="mb-3">
         <label for="cantidad_personas" class="form-label">Cantidad Personas</label>
         <input type="number" class="form-control" id="cantidad_personas" name="cantidad_personas" value="{{ old('cantidad_personas') }}" required>
