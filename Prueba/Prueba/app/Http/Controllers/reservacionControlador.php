@@ -31,7 +31,7 @@ class reservacionControlador extends Controller
     }
     if($usuario->role=='admin'){
         $reservaciones= Reservacion::all();
-        return view('admin.reservaciones.index',compact('reservaciones'));
+        return view('empleados.reservaciones.index',compact('reservaciones'));
     }
 
     abort(403, 'Acceso denegado');
