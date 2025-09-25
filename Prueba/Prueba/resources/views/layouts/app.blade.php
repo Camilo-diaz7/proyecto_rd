@@ -84,7 +84,7 @@
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         box-shadow: 0 2px 8px rgba(5, 10, 5, 5.1);
         display: flex;
-        
+
       }
 
       .producto:hover {
@@ -134,15 +134,16 @@
           <img src="{{ asset('imagenes/logo1.svg') }}" alt="logo" class="img-fluid" style="margin-left: 25px;"/>
         </a>
       </div>
-      <nav> 
+      <nav>
         <ul class="d-flex">
           <span style="font-size: 18px; font-weight: bold; color:gray">
             {{ Auth::user()->name }} {{ Auth::user()->apellido }}
           </span>
           <li><a href="{{route('cliente.reservaciones.index')}}">Reservaciones</a></li>
           <li><a href="{{route('cliente.boletas.index')}}">Boletas</a></li>
+          <li><a href="{{ route('cliente.evento.index') }}">Eventos</a></li>
           <li>
-            <a href="{{ route('logout') }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión </a>   
+            <a href="{{ route('logout') }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión </a>
           </li>
           </ul>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf

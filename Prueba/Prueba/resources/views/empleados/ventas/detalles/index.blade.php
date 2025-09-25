@@ -5,7 +5,7 @@
 @section('content')
     <h1>Detalles</h1>
 
-    <a href="{{ route('detalles.create') }}" class="btn btn-primary mb-3">Agregar detalle</a>
+    <a href="{{ route('empleados.detalles.create') }}" class="btn btn-primary mb-3">Agregar detalle</a>
 
     @if($detalleVenta->isEmpty())
         <div class="alert alert-info">
