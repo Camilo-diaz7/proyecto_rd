@@ -50,7 +50,7 @@ class ProductoControlador extends Controller
 
         Producto::create($validated);
 
-        return redirect()->route('empleados.productos.index')->with('success', 'Producto registrado exitosamente.');
+        return redirect()->route('admin.productos.index')->with('success', 'Producto registrado exitosamente.');
     }
 
     /**
@@ -96,7 +96,7 @@ class ProductoControlador extends Controller
 
         $producto->update($validated);
 
-        return redirect()->route('empleados.productos.index')->with('success', 'Producto actualizado exitosamente.');
+        return redirect()->route('admin.productos.index')->with('success', 'Producto actualizado exitosamente.');
     }
 
     /**
@@ -106,6 +106,6 @@ class ProductoControlador extends Controller
     {
         $producto->delete();
 
-        return redirect()->route('empleados.productos.index')->with('success', 'Producto eliminado exitosamente.');
+        return redirect()->route('admin.productos.index')->with('success', 'Producto eliminado exitosamente.');
     }
 }

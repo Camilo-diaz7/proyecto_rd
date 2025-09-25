@@ -14,7 +14,7 @@
     @endif
 
     <form action="{{ route('admin.productos.update', $producto) }}" method="POST">
-    <form action="{{ route('empleados.productos.update', $producto) }}" method="POST">
+    <form action="{{ route('admin.productos.update', $producto) }}" method="POST">
         @csrf
         @method('PUT')
 
